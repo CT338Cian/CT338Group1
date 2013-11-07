@@ -43,6 +43,7 @@ public class CreatePersonServlet extends HttpServlet {
             //Get the data from user's form            
             String firstName  = (String) request.getParameter("firstName");
             String lastName   = (String) request.getParameter("surname");
+            String address   = (String) request.getParameter("address");
             String dobString   = (String) request.getParameter("dob");
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date dob = formatter.parse(dobString);

@@ -17,6 +17,7 @@
     <table>
         <tr><td>First Name</td><td><input type="text" id = "firstName" name="firstName" required/></td></tr>
         <tr><td>Surname</td><td><input type="text" id = "surname" name="surname" required/></td></tr>
+        <tr><td>Address</td><td><input type="text" id = "address" name="address" required/></td></tr>
         <tr><td>Date of Birth</td><td><input type="date" id = "dob" name="dob" required/></td></tr>
         <tr><td>Email</td><td><input type="email" id = "email" name="email" required/></td></tr>
         <tr><td>Phone</td><td><input type="text" id = "phone" name="phone" required/></td></tr>

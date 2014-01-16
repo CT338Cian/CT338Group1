@@ -13,6 +13,9 @@
     <body>
 
     <h1>Register</h1>
+    <div style="color: red">${errorMessage}</div>
+         
+    <br>
     <form id="createPersonForm" action="CreatePerson" method="post">
     <table>
         <tr><td>First Name</td><td><input type="text" id = "firstName" name="firstName" required/></td></tr>
@@ -22,9 +25,10 @@
         <tr><td>Email</td><td><input type="email" id = "email" name="email" required/></td></tr>
         <tr><td>Phone</td><td><input type="text" id = "phone" name="phone" required/></td></tr>
         <tr><td>Password</td><td><input type="password" id = "password" name="password" required/></td></tr>
-    </table>
+    </table>        
     <input type="submit" id="CreateRecord" value="CreateRecord" />
     </form>
+    <br><br>
 <a href="ListPerson"><strong>Go to List of persons</strong></a>
 </body>
 </html>

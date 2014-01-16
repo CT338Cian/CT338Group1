@@ -8,11 +8,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create a Person Record</title>
+        <title>Register</title>
     </head>
     <body>
 
-    <h1>Create a Person record</h1>
+    <h1>Register</h1>
     <form id="createPersonForm" action="CreatePerson" method="post">
     <table>
         <tr><td>First Name</td><td><input type="text" id = "firstName" name="firstName" required/></td></tr>

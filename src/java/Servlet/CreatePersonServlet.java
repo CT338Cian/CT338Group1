@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
 
 import javax.persistence.PersistenceUnit;
@@ -38,6 +39,7 @@ public class CreatePersonServlet extends HttpServlet {
     throws ServletException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
+        EntityManager em2 = emf.createEntityManager();
         try {
             
             //Get the data from user's form            
@@ -52,6 +54,13 @@ public class CreatePersonServlet extends HttpServlet {
             String password   = (String) request.getParameter("password");
             boolean isAdmin = false;
             
+            List results = em2.createQuery("select p from Customer p where p.email = :email").setParameter("email", email).getResultList();
+            
+            if(results.size()!=0){//email already exists
+                request.setAttribute("errorMessage","Email Taken! Choose Another");
+                request.getRequestDispatcher("CreatePerson.jsp").forward(request, response);//shud print error msg
+            }
+            else{
             
             //Create a person instance out of it
             Customer person = new Customer(firstName, lastName, address, dob, email, phone, password, isAdmin);
@@ -71,6 +80,7 @@ public class CreatePersonServlet extends HttpServlet {
             //Forward to ListPerson servlet to list persons along with the newly
             //created person above
             request.getRequestDispatcher("ListPerson").forward(request, response);
+            }
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {

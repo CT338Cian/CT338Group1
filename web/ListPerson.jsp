@@ -35,6 +35,6 @@
 </c:forEach>
 
 </table>
-<a href="CreatePerson.jsp"><strong>Create a Person Record</strong></a>
+<a href="CreateCustomer.jsp"><strong>Register a new Customer</strong></a>
 </body>
 </html>

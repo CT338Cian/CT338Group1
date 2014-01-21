@@ -54,7 +54,7 @@ public class CreatePersonServlet extends HttpServlet {
             String password   = (String) request.getParameter("password");
             boolean isAdmin = false;
             
-            List results = em2.createQuery("select p from Customer p where p.email = :email").setParameter("email", email).getResultList();
+            List results = em2.createNamedQuery("select p from Customer p where p.email = :email").setParameter("email", email).getResultList();
             
             if(results.size()!=0){//email already exists
                 request.setAttribute("errorMessage","Email Taken! Choose Another");

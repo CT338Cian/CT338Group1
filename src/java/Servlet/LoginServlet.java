@@ -54,12 +54,15 @@ public class LoginServlet extends HttpServlet {
                     .setParameter("email", user)
                     .getSingleResult();
             HttpSession session = request.getSession();
+            session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
             session.setAttribute("name", c.getFName());
+            session.setAttribute("email", c.getEmail());
             response.sendRedirect("LoginSuccess.jsp");
                 
         }
         else{
-            System.out.println("No");           
+            request.setAttribute("error","Username or password incorrect");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
         
     }

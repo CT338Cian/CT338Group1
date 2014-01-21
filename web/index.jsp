@@ -17,6 +17,6 @@ on Libraries node in Projects view can be used to add the JSTL 1.1 library.
     <head>
     </head>
     <body>
-    <jsp:forward page="CreateCustomer.jsp" />
+    <jsp:forward page="home.html" />
     </body>
 </html>

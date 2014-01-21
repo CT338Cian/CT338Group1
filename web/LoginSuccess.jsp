@@ -20,5 +20,6 @@
         else name = (String) session.getAttribute("name");
         %>
         <h1>Hi <%=name %>, Login successful.</h1>
+        <a href="LogoutServlet">Logout</a>
     </body>
 </html>

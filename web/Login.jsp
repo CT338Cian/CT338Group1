@@ -12,6 +12,8 @@
         <title>Login Page</title> 
     </head> 
     <body> 
+        <div style="color: red">${error}</div>
+        <div style="color: deepskyblue">${info}</div>
         <form action="LoginServlet"> Please enter your username 
             <input type="text" name="user"/><br> Please enter your password 
             <input type="text" name="pswd"/> 

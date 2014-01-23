@@ -9,12 +9,15 @@
     <head>        
         <title>Register</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="resources/zebra/zebra_datepicker.js"></script>
+        <link rel="stylesheet" href="resources/zebra/default.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="resources/style.css">
-	<link rel="stylesheet" type="text/css" href="resources/dropdown.css">
-
-	<script type="text/javascript" src="resources/helpers.js"></script>
-	<script type="text/javascript" src="resources/date.js"></script>
-	<script type="text/javascript" src="resources/form.js"></script>
+        <script>
+        $(function() {
+        $('#datepicker').Zebra_DatePicker({view: 'years'});
+        });
+        </script>
     </head>
     <body>
 
@@ -37,7 +40,7 @@
 			</div>
 			
 			<div>
-				<label for="dob">Date of Birth</label> <input type="date" id="dob" name="dob" required>
+				<label for="dob">Date of Birth</label> <input type="text" id="datepicker" name="dob" required>
 			</div>
 			<div>
 				<label for="email">Email</label> <input type="email" id="email" name="email" required>
@@ -49,7 +52,7 @@
 				<label for="password">Password</label> <input type="password" id="password" name="password" required>
 			</div>
 		</fieldset>
-		<div><button type="submit" id="submit-go">Submit</button></div>
+		<div><button type="submit">Submit</button></div>
 	</form>
     <br>
 <a href="ListPerson"><strong>View Customer List</strong></a>

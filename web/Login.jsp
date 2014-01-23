@@ -16,7 +16,7 @@
         <div style="color: deepskyblue">${info}</div>
         <form action="LoginServlet"> Please enter your username 
             <input type="text" name="user"/><br> Please enter your password 
-            <input type="text" name="pswd"/> 
+            <input type="password" name="pswd"/> 
             <input type="submit" value="submit"> 
         </form> 
     </body> 

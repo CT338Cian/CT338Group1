@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vehicle.findByPrice", query = "SELECT v FROM Vehicle v WHERE v.price = :price"),
     @NamedQuery(name = "Vehicle.findByFuelType", query = "SELECT v FROM Vehicle v WHERE v.fuelType = :fuelType"),
     @NamedQuery(name = "Vehicle.findByTransmission", query = "SELECT v FROM Vehicle v WHERE v.transmission = :transmission"),
+    @NamedQuery(name = "Vehicle.findByImagePath", query = "SELECT v FROM Vehicle v WHERE v.imagePath = :imagePath"),
     @NamedQuery(name = "Vehicle.findByIsAvailable", query = "SELECT v FROM Vehicle v WHERE v.isAvailable = :isAvailable")})
 public class Vehicle implements Serializable {
     private static final long serialVersionUID = 1L;

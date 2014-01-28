@@ -52,9 +52,8 @@
 				<label for="password">Password</label> <input type="password" id="password" name="password" required>
 			</div>
 		</fieldset>
+                <br>
 		<div><button type="submit">Submit</button></div>
-	</form>
-    <br>
-<a href="ListPerson"><strong>View Customer List</strong></a>
+	</form>    
 </body>
 </html>

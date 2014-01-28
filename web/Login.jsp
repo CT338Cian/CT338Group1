@@ -1,23 +1,29 @@
-<%-- 
-    Document   : Login
-    Created on : 14-Jan-2014, 16:52:41
-    Author     : Cian
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html> 
-    <head> 
-        <meta http-equiv="Content-Type" content="text/html; charset=windows-1256"> 
-        <title>Login Page</title> 
-    </head> 
-    <body> 
-        <div style="color: red">${error}</div>
-        <div style="color: deepskyblue">${info}</div>
-        <form action="LoginServlet"> Please enter your username 
-            <input type="text" name="user"/><br> Please enter your password 
-            <input type="password" name="pswd"/> 
-            <input type="submit" value="submit"> 
-        </form> 
-    </body> 
-</html> 
+<html>
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
+        <link rel="stylesheet" type="text/css" href="resources/style.css">   
+		<title>Login Page</title>
+    </head>
+    <body>
+    <h1>Login</h1>
+    <div style="color: red">${error}</div>
+    <div style="color: deepskyblue">${info}</div>
+         
+    <form action="LoginServlet" method="post">
+    <p>Please enter your username and password below.</p>
+		
+		<fieldset>
+			<legend>User Details</legend>
+			<div>
+				<label for="username">Username</label> <input type="text" name="user" required>
+			</div>			
+			<div>
+				<label for="password">Password</label> <input type="password" name="pswd" required>
+			</div>
+		</fieldset>
+                <br>
+		<div><button type="submit">Login</button></div>
+	</form>
+</body>
+</html>

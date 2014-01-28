@@ -79,7 +79,7 @@ public class CreateCustomerServlet extends HttpServlet {
             
             //Forward to ListPerson servlet to list persons along with the newly
             //created person above
-            request.getRequestDispatcher("ListPerson").forward(request, response);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
             }
         } catch (Exception ex) {
             throw new ServletException(ex);

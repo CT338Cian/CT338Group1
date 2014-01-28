@@ -36,7 +36,7 @@ input {
 	width:10em;
 	border:1px solid #ddd;
 	background:#fafafa;
-	font:bold 0.95em arial, sans-serif;
+	font:normal 0.95em arial, sans-serif;
 	-moz-border-radius:0.4em;
 	-khtml-border-radius:0.4em;
 }

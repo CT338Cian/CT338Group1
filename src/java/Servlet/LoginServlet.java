@@ -57,7 +57,14 @@ public class LoginServlet extends HttpServlet {
             session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
             session.setAttribute("name", c.getFName());
             session.setAttribute("email", c.getEmail());
-            response.sendRedirect("LoginSuccess.jsp");
+            session.setAttribute("isAdmin", c.getIsAdmin());
+            if (c.getIsAdmin()){
+                response.sendRedirect("AdminPage.jsp");
+            }
+            else{
+                response.sendRedirect("LoginSuccess.jsp");
+            }
+            
                 
         }
         else{

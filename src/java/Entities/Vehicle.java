@@ -71,6 +71,8 @@ public class Vehicle implements Serializable {
     private String transmission;
     @Column(name = "IsAvailable")
     private Boolean isAvailable;
+    @Column(name = "ImagePath")
+    private String imagePath;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vehicleReg")
     private Collection<RentalOrder> rentalOrderCollection;
 
@@ -159,6 +161,10 @@ public class Vehicle implements Serializable {
 
     public void setIsAvailable(Boolean isAvailable) {
         this.isAvailable = isAvailable;
+    }
+    
+    public String getImagePath() {
+        return imagePath;
     }
 
     @XmlTransient

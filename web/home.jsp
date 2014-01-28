@@ -12,7 +12,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
-<body style=" background :#4BB462">
+<body>
 	<a href="Login.jsp" class="blueButton">Login</a> 
 		
 	<a href="CreateCustomer.jsp" class="blueButton">Register</a> 

@@ -17,7 +17,7 @@
 	
 	<a href="ModifyCar.jsp" class="blueButton">Modify Car</a> 
         
-        <a href="ListPerson.jsp" class="blueButton">Cust. List</a> 
+        <a href="ListPerson" class="blueButton">Cust. List</a> 
         <br></br>
         <a href="LogoutServlet" class="blueButton">Logout</a>
 

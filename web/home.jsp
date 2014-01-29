@@ -17,6 +17,8 @@
 		
 	<a href="CreateCustomer.jsp" class="blueButton">Register</a> 
 	
-	<a href="LogoutServlet" class="blueButton">Logout</a> 
+	<a href="LogoutServlet" class="blueButton">Logout</a>
+        
+        <a href="Browse" class="blueButton">Browse</a>
 </body>
 </html>

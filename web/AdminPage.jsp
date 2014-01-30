@@ -20,6 +20,7 @@
         <a href="ListPerson" class="blueButton">Cust. List</a> 
         <br></br>
         <a href="LogoutServlet" class="blueButton">Logout</a>
+        <a href="Admin_GetAllVehiclesServlet" class="blueButton">Vehicles List</a>
 
 </body>
 </html>

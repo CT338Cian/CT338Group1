@@ -30,9 +30,10 @@ public class DisplayVehicles extends HttpServlet {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
-            String reg = "141 G 6542";//replace with a function
             //query for all the persons in database
+
             List images = em.createQuery("SELECT v FROM Vehicle v WHERE v.imagePath IS NOT NULL").getResultList();
+
             request.setAttribute("imagePaths",images);
             
             //Forward to the jsp page for rendering

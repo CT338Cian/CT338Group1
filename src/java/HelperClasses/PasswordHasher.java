@@ -28,7 +28,7 @@ public class PasswordHasher {
             // convert byte array to hex
             StringBuilder sb = new StringBuilder();
             for (int i=0;i<hashedBytes.length;i++) {
-	    	sb.append(Integer.toHexString((int) hashedBytes[i] & 0xFF));
+	    	sb.append(Integer.toString((hashedBytes[i] & 0xff) + 0x100, 16).substring(1));
 	    }
             hashedPassword = sb.toString();
             
@@ -52,6 +52,13 @@ public class PasswordHasher {
 	SecureRandom sr = new SecureRandom();
 	byte[] salt = new byte[16];
 	sr.nextBytes(salt);
-	return salt.toString();
+        
+        //convert salt to hex
+        StringBuilder sb = new StringBuilder();
+        for (int i=0;i<salt.length;i++) {
+            sb.append(Integer.toString((salt[i] & 0xff) + 0x100, 16).substring(1));
+	}
+        String hexSalt = sb.toString();
+	return hexSalt;
     }
 }

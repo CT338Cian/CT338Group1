@@ -62,7 +62,7 @@ public class Customer implements Serializable {
     @Size(max = 45)
     @Column(name = "PhoneNo")
     private String phoneNo;
-    @Size(max = 45)
+    @Size(max = 128)
     @Column(name = "Password")
     private String password;
     @Column(name = "JoinDate")
@@ -73,6 +73,9 @@ public class Customer implements Serializable {
     @Column(name = "DateOfBirth")
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
+    @Size(max = 64)
+    @Column(name = "Salt")
+    private String salt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerEmail")
     private Collection<RentalOrder> rentalOrderCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerEmail")
@@ -81,7 +84,7 @@ public class Customer implements Serializable {
     public Customer() {
     }
     
-    public Customer(String firstName, String lastName, String address, Date dob, String email, String phone, String password, boolean isAdmin) {
+    public Customer(String firstName, String lastName, String address, Date dob, String email, String phone, String password, boolean isAdmin, String salt) {
         this.fName = firstName;
         this.sName = lastName;
         this.address = address;
@@ -90,6 +93,7 @@ public class Customer implements Serializable {
         this.phoneNo = phone;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.salt = salt;
         
     }
 

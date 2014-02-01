@@ -44,15 +44,16 @@ public class LoginServlet extends HttpServlet {
         EntityManager em = null;
         em = emf.createEntityManager();
         
-        
         String user = request.getParameter("user");
         String pass = request.getParameter("pswd");
-            
-        if(LoginValidator.validateUser(user, pass)){
+   
+        if(LoginValidator.validateUser(user, pass)){ //if email and password match in DB
             System.out.println("Yes");
+            // get customer details from database
             Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
                     .setParameter("email", user)
                     .getSingleResult();
+            //create http session and set required attributes
             HttpSession session = request.getSession();
             session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
             session.setAttribute("name", c.getFName());
@@ -63,9 +64,7 @@ public class LoginServlet extends HttpServlet {
             }
             else{
                 response.sendRedirect("LoginSuccess.jsp");
-            }
-            
-                
+            }       
         }
         else{
             request.setAttribute("error","Username or password incorrect");

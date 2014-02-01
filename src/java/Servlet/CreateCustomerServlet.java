@@ -1,6 +1,7 @@
 
 package Servlet;
 
+import HelperClasses.PasswordHasher;
 import Entities.Customer;
 import java.io.*;
 import javax.servlet.*;
@@ -56,30 +57,34 @@ public class CreateCustomerServlet extends HttpServlet {
             
             List results = em2.createNamedQuery("Customer.findByEmail").setParameter("email", email).getResultList();
             
-            if(results.size()!=0){//email already exists
+            if(!results.isEmpty()){//email already exists
                 request.setAttribute("errorMessage","Email Taken! Choose Another");
                 request.getRequestDispatcher("CreateCustomer.jsp").forward(request, response);//shud print error msg
             }
             else{
-            
-            //Create a person instance out of it
-            Customer person = new Customer(firstName, lastName, address, dob, email, phone, password, isAdmin);
-            
-            //begin a transaction
-            utx.begin();
-            //create an em. 
-            //Since the em is created inside a transaction, it is associsated with 
-            //the transaction
-            em = emf.createEntityManager();
-            //persist the person entity
-            em.persist(person);
-            //commit transaction which will trigger the em to 
-            //commit newly created entity into database
-            utx.commit();
-            
-            //Forward to ListPerson servlet to list persons along with the newly
-            //created person above
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+                //hash the password
+                String[] passAndHash = PasswordHasher.registerHashAndSalt(password);
+                String hashedPassword = passAndHash[0];
+                String salt = passAndHash[1];
+                
+                //Create a person instance out of it
+                Customer person = new Customer(firstName, lastName, address, dob, email, phone, hashedPassword, isAdmin, salt);
+
+                //begin a transaction
+                utx.begin();
+                //create an em. 
+                //Since the em is created inside a transaction, it is associsated with 
+                //the transaction
+                em = emf.createEntityManager();
+                //persist the person entity
+                em.persist(person);
+                //commit transaction which will trigger the em to 
+                //commit newly created entity into database
+                utx.commit();
+
+                //Forward to ListPerson servlet to list persons along with the newly
+                //created person above
+                request.getRequestDispatcher("home.jsp").forward(request, response);
             }
         } catch (Exception ex) {
             throw new ServletException(ex);

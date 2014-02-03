@@ -1,18 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -21,6 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Admin_DeleteServlet", urlPatterns = {"/Admin_DeleteServlet"})
 public class Admin_DeleteServlet extends HttpServlet {
 
+    @PersistenceUnit
+    //The emf corresponding to 
+    private EntityManagerFactory emf;
+    
+    @Resource
+    private UserTransaction utx;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,17 +37,40 @@ public class Admin_DeleteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Admin_DeleteServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Admin_DeleteServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+       EntityManager em = null;
+       
+       try {
+                utx.begin();
+                //Create an em. Since the em is created inside a transaction, it is associsated with the transaction
+                em = emf.createEntityManager();
+            
+            //Get the data from user's form            
+            String reg  = (String) request.getParameter("reg");            
+            
+            int deleted = em.createQuery ("DELETE FROM Vehicle v WHERE v.reg = :reg").setParameter("reg", reg).executeUpdate ();
+            //commit transaction which will trigger the em to 
+            //commit newly created entity into database
+            utx.commit();
+            
+            if(deleted!=1){//unsuccessful delete
+                System.out.println("Car Deletion Failed!");
+                request.setAttribute("errorMessage","Vehicle Not Removed. May no longer exist.");
+                request.getRequestDispatcher("DeleteCar.jsp").forward(request, response);
+            }
+   
+            else{
+                System.out.println("Car with reg #"+reg+" Deleted");
+//                request.getRequestDispatcher("Admin_GetAllVehiclesServlet").forward(request, response);
+                response.sendRedirect("Admin_GetAllVehiclesServlet");
+            }
+            
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        } finally {
+            //close the em to release any resources held up by the persistebce provider
+            if(em != null) {
+                em.close();
+            }
         }
     }
 

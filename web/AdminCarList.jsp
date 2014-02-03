@@ -55,8 +55,17 @@
                    <c:param name="transmission" value="${vehicle.getTransmission()}"/>
                 </c:url>">
                    Modify</a>&nbsp;&nbsp;</td> 
-            <td><a href="<c:url value="Admin_DeleteServlet">
+            <td><a href="<c:url value="DeleteCar.jsp">
+                   <%--<c:param name="reg" value="${vehicle.getReg()}"/>--%>
                    <c:param name="reg" value="${vehicle.getReg()}"/>
+                   <c:param name="make" value="${vehicle.getMake()}"/>
+                   <c:param name="model" value="${vehicle.getModel()}"/>
+                   <c:param name="year" value="${vehicle.getYear()}"/>
+                   <c:param name="colour" value="${vehicle.getColour()}"/>
+                   <c:param name="enginecc" value="${vehicle.getEngineCC()}"/>
+                   <c:param name="price" value="${vehicle.getPrice()}"/>
+                   <c:param name="fueltype" value="${vehicle.getFuelType()}"/>
+                   <c:param name="transmission" value="${vehicle.getTransmission()}"/>
                 </c:url>">
                    Delete</a>&nbsp;&nbsp;</td> 
             

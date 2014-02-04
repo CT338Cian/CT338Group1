@@ -6,6 +6,12 @@
 		<title>Login Page</title>
     </head>
     <body>
+        <img src="resources/images/Header.jpg">
+	<br>
+	<a href="home.jsp" class="blueButton">Home</a>
+	<a href="CreateCustomer.jsp" class="blueButton">Register</a>
+        
+        <div class="content">
     <h1>Login</h1>
     <div style="color: red">${error}</div>
     <div style="color: deepskyblue">${info}</div>
@@ -25,5 +31,6 @@
                 <br>
 		<div><button type="submit">Login</button></div>
 	</form>
+    </div>
 </body>
 </html>

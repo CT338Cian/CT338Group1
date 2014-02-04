@@ -24,7 +24,7 @@
 	<br>
 	<a href="home.jsp" class="blueButton">Home</a>
 	<a href="Login.jsp" class="blueButton">Login</a>
-
+    <div class="content">
     <h1>Account Registration</h1>
     <div style="color: red">${errorMessage}</div>
          
@@ -58,6 +58,7 @@
 		</fieldset>
                 <br>
 		<div><button type="submit">Submit</button></div>
-	</form>    
+	</form> 
+    </div>
 </body>
 </html>

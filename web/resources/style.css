@@ -101,5 +101,10 @@ fieldset {
 	position:relative;
 	top:1px;
 }
+
+.cars{
+	width:440px;
+	height:240px;
+}
 /* Buttons generated using CSSButtonGenerator.com */
 

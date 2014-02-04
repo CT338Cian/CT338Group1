@@ -80,8 +80,19 @@ public class Vehicle implements Serializable {
     public Vehicle() {
     }
 
-    public Vehicle(String reg) {
+    public Vehicle(String reg, String make, String model, Integer year, String colour, String engineCC, Integer price, String fueltype, String transmission, String imagepath, Boolean isAvailable) {
         this.reg = reg;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.colour = colour;
+        this.engineCC = engineCC;
+        this.price = price;
+        this.fuelType = fueltype;
+        this.transmission = transmission;
+        this.imagePath = imagepath;
+        this.isAvailable = isAvailable;
+        
     }
 
     public String getReg() {

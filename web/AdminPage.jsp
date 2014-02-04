@@ -11,7 +11,7 @@
             </h1>
             <h2>Please Select Action:</h2>
 
-	<a href="AddCar.jsp" class="blueButton">Add Car</a> 
+	<a href="AdminAdd.jsp" class="blueButton">Add Car</a> 
 		
 	<a href="DeleteCar.jsp" class="blueButton">Delete Car</a> 
 	

@@ -13,6 +13,9 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
 <body>
+        <img src="resources/images/Header.jpg" id="logo">
+	<br>
+
 	<a href="Login.jsp" class="blueButton">Login</a> 
 		
 	<a href="CreateCustomer.jsp" class="blueButton">Register</a> 

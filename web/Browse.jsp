@@ -23,8 +23,8 @@
         <div class="content">
         <h1>Cars</h1>
         <div>            
-        <c:forEach var="cars" begin="0" items="${requestScope.imagePaths}">        
-        <img src="${cars.getImagePath()}">
+        <c:forEach var="vehicle" begin="0" items="${requestScope.imagePaths}">        
+        <img src="${vehicle.getImagePath()}" class="cars">
         </c:forEach>
         </div>
         </div>

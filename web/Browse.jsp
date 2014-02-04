@@ -13,6 +13,8 @@
         <title>Vehicles to Rent</title>
     </head>
     <body>
+        <img src="resources/images/Header.jpg" id="logo">
+	<br>
         <h1>Cars</h1>
         <div>            
         <c:forEach var="cars" begin="0" items="${requestScope.imagePaths}">        

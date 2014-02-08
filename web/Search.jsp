@@ -9,18 +9,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Search</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Search:</h1>
         
         <form id="searchForm" action="SearchServlet" method="post">
             Make:
             <select id="make" name="make">
-                <option value="Volvo">Volvo</option>
-                <option value="Saab">Saab</option>
-                <option value="Mercedes">Mercedes</option>
+                <option value="Mazda">Mazda</option>
+                <option value="Toyota">Toyota</option>
+                <option value="Nissan">Nissan</option>
                 <option value="Audi">Audi</option>
+                <option value="McLaren">McLaren</option>
+                <option value="Ford">Ford</option>
+                <option value="Lambourghini">Lambourghini</option>
             </select>
             Tranmission Type:
             <select id="transmission" name="transmission">

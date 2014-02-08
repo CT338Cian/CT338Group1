@@ -10,39 +10,35 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="resources/style.css">
         <title>Search Results</title>
     </head>
     <body>
         <h1>Search Results:</h1>
         
+        <c:if test="${empty searchResultsList}">
+            No results matched your query!
+        </c:if>
         
-        
-        <table id="searchResultsTable" border="3">
-        <tr >
-            <th bgcolor=>Reg</th>
-            <th bgcolor=>Make</th>
-            <th bgcolor=>Model</th>
-            <th bgcolor=>Year</th>    
-            <th bgcolor=>Colour</th>
-            <th bgcolor=>Engine CC</th>
-            <th bgcolor=>Price</th>
-            <th bgcolor=>Fuel Type</th>
-            <th bgcolor=>Transmission</th>            
-        </tr>
-        
-        <c:forEach var="vehicle" begin="0" items="${searchResultsList}">
-        <tr>    
-            <td>${vehicle.getReg()}&nbsp;&nbsp;</td> 
-            <td>${vehicle.getMake()}&nbsp;&nbsp;</td> 
-            <td>${vehicle.getModel()}&nbsp;&nbsp;</td> 
-            <td>${vehicle.getYear()}&nbsp;&nbsp;</td> 
-            <td>${vehicle.getColour()}&nbsp;&nbsp;</td> 
-            <td>${vehicle.getEngineCC()}&nbsp;&nbsp;</td> 
-            <td>${vehicle.getPrice()}&nbsp;&nbsp;</td> 
-            <td>${vehicle.getFuelType()}&nbsp;&nbsp;</td> 
-            <td>${vehicle.getTransmission()}&nbsp;&nbsp;</td> 
-        </tr>
-        </c:forEach>
+        <div id="carlistdiv" class="carlistdiv">
+            <ul class="carlist">
+                <c:forEach var="vehicle" begin="0" items="${searchResultsList}">
+                <li>
+                    <a href="<c:url value="CarDetails.jsp">
+                           <c:param name="reg" value="${vehicle.getReg()}"/>
+                            </c:url>" class="inner">
+			<div class="li-img">
+				<img src="${vehicle.getImagePath()}" alt="Image not found!" />
+			</div>
+			<div class="li-text">
+                            <h4 class="li-head">${vehicle.getMake()} ${vehicle.getModel()}</h4>
+                            <p class="li-sub">€${vehicle.getPrice()}</p>
+			</div>
+                    </a>
+		</li>
+                </c:forEach>
+            </ul>
+        </div>
       
     </body>
 </html>

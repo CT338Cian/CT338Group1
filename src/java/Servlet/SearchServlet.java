@@ -55,13 +55,15 @@ public class SearchServlet extends HttpServlet {
 
             List searchResults = null;
 
+            //return all cars (debug)
+            //searchResults = em.createNamedQuery("Vehicle.findAll").getResultList();
+            
+            // run query
             searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.transmission = :transmission AND v.price < :price")
                 .setParameter("make", make)
                 .setParameter("transmission", transmission)
                 .setParameter("price", price)
                 .getResultList();
-            
-            System.out.println(searchResults.get(0));
 
             request.setAttribute("searchResultsList",searchResults);
             

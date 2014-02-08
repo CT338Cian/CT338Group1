@@ -106,5 +106,49 @@ fieldset {
 	width:440px;
 	height:240px;
 }
-/* Buttons generated using CSSButtonGenerator.com */
+
+.carlist li {
+  background: url('images/icon_arrow_right.png') no-repeat 97% 50%;
+  border-bottom: 1px solid #ccc;
+  display: table;
+  border-collapse: collapse;
+  width: 30%;
+  height: 120px;
+}
+
+.carlist a {
+  color: #808080;
+  text-decoration: none;
+}
+.carlist a:hover, a:focus {
+  color: #e51837;
+}
+
+.inner {
+  display: table-row;
+  overflow: hidden;
+}
+.li-img {
+  display: table-cell;
+  vertical-align: middle;
+  width: 30%;
+  padding-right: 1em;
+}
+.li-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.li-text {
+  display: table-cell;
+  vertical-align: middle;
+  width: 70%;
+}
+.li-head {
+  margin: 0;
+}
+.li-sub {
+  margin: 0;
+}
+
 

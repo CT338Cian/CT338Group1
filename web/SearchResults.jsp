@@ -24,8 +24,8 @@
             <ul class="carlist">
                 <c:forEach var="vehicle" begin="0" items="${searchResultsList}">
                 <li>
-                    <a href="<c:url value="CarDetails.jsp">
-                           <c:param name="reg" value="${vehicle.getReg()}"/>
+                    <a href="<c:url value="GetCarInfoServlet">
+                           <c:param name="Reg" value="${vehicle.getReg()}"/>
                             </c:url>" class="inner">
 			<div class="li-img">
 				<img src="${vehicle.getImagePath()}" alt="Image not found!" />

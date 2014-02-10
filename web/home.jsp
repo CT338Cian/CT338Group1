@@ -23,5 +23,8 @@
 	<a href="LogoutServlet" class="blueButton">Logout</a>
         
         <a href="Browse" class="blueButton">Browse</a>
+        
+        <a href="Search.jsp" class="blueButton">Search</a>
+
 </body>
 </html>

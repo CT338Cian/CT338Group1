@@ -33,10 +33,10 @@ public class DisplayVehicles extends HttpServlet {
             //query for all the persons in database
 
             List images = em.createQuery("SELECT v FROM Vehicle v WHERE v.imagePath IS NOT NULL").getResultList();           
-            request.setAttribute("imagePaths",images);
+            request.setAttribute("searchResultsList",images);
             
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("Browse.jsp").forward(request, response);
+            request.getRequestDispatcher("SearchResults.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {

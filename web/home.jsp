@@ -25,6 +25,10 @@
         <a href="Browse" class="blueButton">Browse</a>
         
         <a href="Search.jsp" class="blueButton">Search</a>
+        
+        <a href="GetOrdersServlet" class="blueButton">My Orders</a>
+        
+        
 
 </body>
 </html>

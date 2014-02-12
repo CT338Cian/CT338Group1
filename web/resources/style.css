@@ -152,3 +152,30 @@ fieldset {
 }
 
 
+.orderlist li {
+  background: url('images/icon_arrow_right.png') no-repeat 97% 50%;
+  border-bottom: 1px solid #ccc;
+  display: table;
+  border-collapse: collapse;
+  width: 20%;
+}
+
+.orderlist li:hover, li:focus {
+  color: #e51837;
+  cursor: pointer;
+}
+
+.orderlist a {
+  color: #808080;
+  text-decoration: none;
+}
+
+.orderlist a:hover, a:focus {
+  color: #e51837;
+}
+
+.receiptpanel{
+    display: none;
+    border-bottom: 1px solid #ccc;
+    width: 20%;
+}

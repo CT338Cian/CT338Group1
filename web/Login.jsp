@@ -15,6 +15,10 @@
     <h1>Login</h1>
     <div style="color: red">${error}</div>
     <div style="color: deepskyblue">${info}</div>
+    <%
+    request.getSession().removeAttribute("error");
+    request.getSession().removeAttribute("info");
+    %>
          
     <form action="LoginServlet" method="post">
     <p>Please enter your username and password below.</p>

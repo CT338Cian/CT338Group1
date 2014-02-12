@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Transaction.findByTransactionID", query = "SELECT t FROM Transaction t WHERE t.transactionID = :transactionID"),
     @NamedQuery(name = "Transaction.findByAmount", query = "SELECT t FROM Transaction t WHERE t.amount = :amount"),
     @NamedQuery(name = "Transaction.findByCardType", query = "SELECT t FROM Transaction t WHERE t.cardType = :cardType"),
+    @NamedQuery(name = "Transaction.findByOrderNo", query = "SELECT t FROM Transaction t WHERE t.orderOrderNo = :orderNo"),
     @NamedQuery(name = "Transaction.findByCardNo", query = "SELECT t FROM Transaction t WHERE t.cardNo = :cardNo")})
 public class Transaction implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -35,8 +35,8 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false); // get session, if it exists
         session.invalidate();
-        request.setAttribute("info","Logged Out Successfully");
-        request.getRequestDispatcher("Login.jsp").forward(request, response);
+        request.getSession().setAttribute("info","Logged Out Successfully");
+        response.sendRedirect("Login.jsp");
     }
     
 

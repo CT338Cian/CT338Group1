@@ -46,9 +46,11 @@ public class GetOrdersServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         
-        HttpSession session = request.getSession(false);
-        if (session == null){
-            response.sendRedirect("LoginPage.jsp");
+        HttpSession session = request.getSession();
+        if (session.getAttribute("authenticated") == null){
+            session.setAttribute("error", "You need to be logged in to do that.");
+            response.sendRedirect("Login.jsp");
+            return;
         }
         
         try {
@@ -56,18 +58,20 @@ public class GetOrdersServlet extends HttpServlet {
             
             String email = (String)session.getAttribute("email");
 
-            //query for all the persons in database
-//            List orders = em.createNativeQuery("SELECT * FROM RentalOrder WHERE Customer_Email = ?")
-//                    .setParameter(1, email)
-//                    .getResultList();
             Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
                     .setParameter("email", email)
                     .getSingleResult();
             
-            List orders = em.createNamedQuery("RentalOrder.findByCustomer")
+//            List orders = em.createNamedQuery("RentalOrder.findByCustomer")
+//                    .setParameter("customer", c)
+//                    .getResultList();
+//            request.setAttribute("orderList",orders);
+            
+            
+            List orders = em.createQuery("SELECT r, t FROM RentalOrder r, Transaction t WHERE r.customerEmail = :customer")
                     .setParameter("customer", c)
                     .getResultList();
-            request.setAttribute("orderList",orders);
+            request.setAttribute("orderList", orders);
             
             //Forward to the jsp page for rendering
             request.getRequestDispatcher("MyOrders.jsp").forward(request, response);

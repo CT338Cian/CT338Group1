@@ -8,6 +8,8 @@ package Servlet;
 
 import Entities.Customer;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -17,13 +19,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import Entities.RentalOrder;
+import Entities.Transaction;
 /**
  *
  * @author Cian
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "GetReceiptServlet", urlPatterns = {"/GetReceiptServlet"})
+public class GetReceiptServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,41 +43,41 @@ public class LoginServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
+       assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
-        em = emf.createEntityManager();
         
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pswd");
-   
-        if(LoginValidator.validateUser(user, pass)){ //if email and password match in DB
-            System.out.println("Yes");
-            // get customer details from database
-            Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
-                    .setParameter("email", user)
-                    .getSingleResult();
-            //create http session and set required attributes
-            HttpSession session = request.getSession();
-            session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
-            session.setAttribute("name", c.getFName());
-            session.setAttribute("email", c.getEmail());
-            session.setAttribute("isAdmin", c.getIsAdmin());
-            session.setAttribute("authenticated", true);
-            if (c.getIsAdmin()){
-                response.sendRedirect("AdminPage.jsp");
-            }
-            else{
-                response.sendRedirect("LoginSuccess.jsp");
-            }       
+        HttpSession session = request.getSession(false);
+        if (session == null){
+            request.getSession().setAttribute("error", "You need to be logged in to do that.");
+            response.sendRedirect("LoginPage.jsp");
         }
-        else{
-            request.getSession().setAttribute("error","Username or password incorrect");
-            response.sendRedirect("Login.jsp");
+        
+        try {
+            em = emf.createEntityManager();
+            
+            int orderNumber = Integer.parseInt(request.getParameter("OrderNo"));
+            
+            RentalOrder o = (RentalOrder)em.createNamedQuery("RentalOrder.findByOrderNo")
+                    .setParameter("orderNo", orderNumber)
+                    .getSingleResult();
+            
+             Transaction receipt = (Transaction)em.createNamedQuery("Transaction.findByOrderNo")
+                    .setParameter("orderNo", o)
+                    .getSingleResult();
+            request.setAttribute("receipt", receipt);
+            
+            //Forward to the jsp page for rendering
+            request.getRequestDispatcher("Receipt.jsp").forward(request, response);
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        } finally {
+            //close the em to release any resources held up by the persistebce provider
+            if(em != null) {
+                em.close();
+            }
         }
         
     }
-
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

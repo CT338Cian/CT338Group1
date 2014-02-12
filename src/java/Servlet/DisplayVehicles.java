@@ -36,7 +36,7 @@ public class DisplayVehicles extends HttpServlet {
             request.setAttribute("searchResultsList",images);
             
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("SearchResults.jsp").forward(request, response);
+            request.getRequestDispatcher("Browse.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {

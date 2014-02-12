@@ -8,10 +8,11 @@
     <body>
         <img src="resources/images/Header.jpg">
 	<br>
+        <div class="content">
 	<a href="home.jsp" class="blueButton">Home</a>
 	<a href="CreateCustomer.jsp" class="blueButton">Register</a>
         
-        <div class="content">
+        
     <h1>Login</h1>
     <div style="color: red">${error}</div>
     <div style="color: deepskyblue">${info}</div>

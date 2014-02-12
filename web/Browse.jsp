@@ -1,11 +1,11 @@
 <%-- 
-    Document   : Browse
-    Created on : 28-Jan-2014, 23:39:48
-    Author     : Niall
+    Document   : SearchResults
+    Created on : 04-Feb-2014, 12:10:11
+    Author     : Cian
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,35 +15,49 @@
     </head>
     <body>
         <img src="resources/images/Header.jpg" id="logo">
+        <c:if test="${not empty sessionScope.name}">
+            <h2 id="username"><span>${sessionScope.name}</span></h2>
+        </c:if>
 	<br>
-	<a href="Login.jsp" class="blueButton">Login</a>		
-	<a href="CreateCustomer.jsp" class="blueButton">Register</a>        
-        <a href="home.jsp" class="blueButton">Home</a>
-
         <div class="content">
-        <h1>Cars</h1>
-        <div>            
-        <c:forEach var="vehicle" begin="0" items="${requestScope.imagePaths}">        
-        <img src="${vehicle.getImagePath()}" class="cars">
-        </c:forEach>
+        <a href="home.jsp" class="blueButton">Home</a>
+        
+	<c:if test="${empty sessionScope.name}">
+	<a href="Login.jsp" class="blueButton">Login</a>
+        </c:if>		
+        
+        <c:if test="${not empty sessionScope.name}">
+	<a href="LogoutServlet" class="blueButton">Logout</a>
+        </c:if>
+        
+	<c:if test="${empty sessionScope.name}">
+	<a href="CreateCustomer.jsp" class="blueButton">Register</a> 
+        </c:if>        
+        
+        
+        <c:if test="${empty searchResultsList}">
+            No results matched your query!
+        </c:if>
+        
+        <div id="carlistdiv" class="carlistdiv">
+            <ul class="carlist">
+                <c:forEach var="vehicle" begin="0" items="${searchResultsList}">
+                <li>
+                    <a href="<c:url value="GetCarInfoServlet">
+                           <c:param name="Reg" value="${vehicle.getReg()}"/>
+                            </c:url>" class="inner">
+			<div class="li-img">
+				<img src="${vehicle.getImagePath()}" alt="Image not found!" />
+			</div>
+			<div class="li-text">
+                            <h4 class="li-head">${vehicle.getMake()} ${vehicle.getModel()}</h4>
+                            <p class="li-sub">€${vehicle.getPrice()}</p>
+			</div>
+                    </a>
+		</li>
+                </c:forEach>
+            </ul>
         </div>
-        </div>
+     </div>     
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

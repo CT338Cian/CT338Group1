@@ -35,6 +35,9 @@
                 Transaction ID: ${transaction.getTransactionID()} <br>
                 Amount: ${transaction.getAmount()} <br>
                 Card Type: ${transaction.getAmount()} <br>
+                <a href="<c:url value="CancelOrderServlet">
+                           <c:param name="OrderNo" value="${transaction.orderOrderNo.getOrderNo()}"/>
+                   </c:url>" class="confirmdelete">Cancel</a>
             </div>
             
             <p>
@@ -49,7 +52,12 @@
         $(".orderpanel").click(function() {
           $(this).next(".receiptpanel").slideToggle()
         });  
-      });      
+      });     
+      
+      $('.confirmdelete').on('click', function () {
+        return confirm('Are you sure you want to cancel this order?');
+      });
     </script>
+
     </body>
 </html>

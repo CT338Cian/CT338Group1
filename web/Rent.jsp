@@ -16,8 +16,8 @@
         <link rel="stylesheet" type="text/css" href="resources/style.css">
         <script>
         $(function() {
-        $('#datepicker').Zebra_DatePicker();
-        $('#datepicker1').Zebra_DatePicker();
+        $('#datepicker').Zebra_DatePicker({direction: 1});
+        $('#datepicker1').Zebra_DatePicker({direction: 2});
         });
         </script>
     </head>

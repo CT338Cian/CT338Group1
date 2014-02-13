@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
         String pass = request.getParameter("pswd");
    
         if(LoginValidator.validateUser(user, pass)){ //if email and password match in DB
-            System.out.println("Yes");
+            System.out.println("User "+user+" logged in.");
             // get customer details from database
             Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
                     .setParameter("email", user)
@@ -59,12 +59,11 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("name", c.getFName());
             session.setAttribute("email", c.getEmail());
             session.setAttribute("isAdmin", c.getIsAdmin());
-            session.setAttribute("authenticated", true);
             if (c.getIsAdmin()){
                 response.sendRedirect("AdminPage.jsp");
             }
             else{
-                response.sendRedirect("LoginSuccess.jsp");
+                response.sendRedirect("home.jsp");
             }       
         }
         else{

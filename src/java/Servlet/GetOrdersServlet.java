@@ -47,7 +47,7 @@ public class GetOrdersServlet extends HttpServlet {
         EntityManager em = null;
         
         HttpSession session = request.getSession();
-        if (session.getAttribute("authenticated") == null){
+        if (session.getAttribute("name") == null){
             session.setAttribute("error", "You need to be logged in to do that.");
             response.sendRedirect("Login.jsp");
             return;

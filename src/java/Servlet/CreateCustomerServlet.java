@@ -69,7 +69,11 @@ public class CreateCustomerServlet extends HttpServlet {
                 
                 //Create a person instance out of it
                 Customer person = new Customer(firstName, lastName, address, dob, email, phone, hashedPassword, isAdmin, salt);
-
+                HttpSession session = request.getSession();
+                session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
+                session.setAttribute("name", firstName);
+                session.setAttribute("email", email);
+                session.setAttribute("isAdmin", isAdmin);
                 //begin a transaction
                 utx.begin();
                 //create an em. 

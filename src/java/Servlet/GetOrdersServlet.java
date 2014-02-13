@@ -62,17 +62,10 @@ public class GetOrdersServlet extends HttpServlet {
                     .setParameter("email", email)
                     .getSingleResult();
             
-//            List orders = em.createNamedQuery("RentalOrder.findByCustomer")
-//                    .setParameter("customer", c)
-//                    .getResultList();
-//            request.setAttribute("orderList",orders);
-            
-            
-            List orders = em.createQuery("SELECT r, t FROM RentalOrder r, Transaction t WHERE r.customerEmail = :customer")
+            List orders = em.createQuery("SELECT t FROM Transaction t WHERE t.orderOrderNo = (SELECT r.orderNo FROM RentalOrder r WHERE r.customerEmail = :customer)")
                     .setParameter("customer", c)
                     .getResultList();
             request.setAttribute("orderList", orders);
-            
             //Forward to the jsp page for rendering
             request.getRequestDispatcher("MyOrders.jsp").forward(request, response);
         } catch (Exception ex) {

@@ -23,20 +23,20 @@
         </c:if>
         
         <ul class = "orderlist">
-        <c:forEach var="order" begin="0" items="${orderList}">
-            <li class = "orderpanel">
-                <%--<a href="<c:url value="GetReceiptServlet">
-                   <c:param name="OrderNo" value="${order.getOrderNo()}"/>
-                   </c:url>">--%>
-                    
-                    Order No: ${order.getOrderNo()} <br>
-                    Order Time: <fmt:formatDate type="both" value="${order.getOrderDate()}"/> <br>
-                    Vehicle: ${order.getVehicleReg().getMake()} ${order.getVehicleReg().getModel()} <br>
-                    Start Date: <fmt:formatDate type="date" value="${order.getStartDate()}"/> <br>
-                    End Date: <fmt:formatDate type="date" value="${order.getEndDate()}"/> <br>
-                <%--</a>--%>
+        <c:forEach var="transaction" begin="0" items="${orderList}">
+            <li class = "orderpanel">                    
+                    Order No: ${transaction.orderOrderNo.getOrderNo()} <br>
+                    Order Time: <fmt:formatDate type="both" value="${transaction.orderOrderNo.getOrderDate()}"/> <br>
+                    Vehicle: ${transaction.orderOrderNo.vehicleReg.getMake()} ${transaction.orderOrderNo.vehicleReg.getModel()} <br>
+                    Start Date: <fmt:formatDate type="date" value="${transaction.orderOrderNo.getStartDate()}"/> <br>
+                    End Date: <fmt:formatDate type="date" value="${transaction.orderOrderNo.getEndDate()}"/> <br>
             </li>
-            <div class = "receiptpanel"> This is the receipt panel </div>
+            <div class = "receiptpanel"> 
+                Transaction ID: ${transaction.getTransactionID()} <br>
+                Amount: ${transaction.getAmount()} <br>
+                Card Type: ${transaction.getAmount()} <br>
+            </div>
+            
             <p>
         </c:forEach>
         </ul>

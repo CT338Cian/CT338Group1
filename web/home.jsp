@@ -28,8 +28,10 @@
                 <a href="LogoutServlet" class="blueButton">Logout</a>
             </c:otherwise>
         </c:choose>
-	<a href="CreateCustomer.jsp" class="blueButton">Register</a> 
-	
+	<c:if test="${empty sessionScope.name}">
+        <a href="CreateCustomer.jsp" class="blueButton">Register</a> 
+	</c:if>
+        
         <a href="Browse" class="blueButton">Browse</a>
         
         <a href="GetOrdersServlet" class="blueButton">My Orders</a>        

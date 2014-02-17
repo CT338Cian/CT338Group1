@@ -14,12 +14,16 @@
         <title>Car Information</title>
     </head>
     <body>
-
-       <div style="color: red">${errorMessage}</div>
+        <img src="resources/images/Header.jpg">
+	<br>
+        <div class="content">
+	<a href="home.jsp" class="blueButton">Home</a>	       
        
+        <div style="color: red">${errorMessage}</div>
+        
        <c:forEach var="vehicle" begin="0" items="${requestScope.VehicleInfo}">
       <h1>${vehicle.getMake()}  ${vehicle.getModel()} </h1>
-      <img src=${vehicle.getImagePath()} alt="ImageOfVehicle"><br>
+      <img src=${vehicle.getImagePath()} alt="ImageOfVehicle" id="imageSize"><br>
      <p>Color: ${vehicle.getColour()}</p>
      <p>Registration: ${vehicle.getReg()}</p>
      <p>Year: ${vehicle.getYear()}</p>
@@ -27,7 +31,12 @@
      <p>Price: €${vehicle.getPrice()}</p>
      <p>FuelType: ${vehicle.getFuelType()}</p>
       <p>Transmission: ${vehicle.getTransmission()}</p>
+      
+      <a href="<c:url value="Rent.jsp">
+                <c:param name="Reg" value="${vehicle.getReg()}"/>
+               </c:url>" class="blueButton" style="width:100px">Rent This</a>
        </c:forEach>
+      </div>
         </body>
 </
 </html>

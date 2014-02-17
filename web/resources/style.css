@@ -166,7 +166,10 @@ fieldset {
 .li-sub {
   margin: 0;
 }
-
+#imageSize{
+    width: 460px;
+    height:250px;
+}
 
 .orderlist li {
   background: url('images/icon_arrow_right.png') no-repeat 97% 50%;

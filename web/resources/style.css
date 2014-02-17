@@ -28,7 +28,7 @@ body{
    padding: 5px; 
 }
 
-#getInfoForm {
+.getInfoForm {
 	background:#fff;
 	padding:1em;
 	border:1px solid #eee;

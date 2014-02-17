@@ -20,7 +20,7 @@
             <h2 id="username"><span>${sessionScope.name}</span></h2>
         </c:if>
 	<br>
-        
+        <div class="content">
         <c:choose>
             <c:when test="${empty sessionScope.name}">
                 <a href="Login.jsp" class="blueButton">Login</a> 
@@ -36,7 +36,7 @@
         <a href="Browse" class="blueButton">Browse</a>
         
         <a href="GetOrdersServlet" class="blueButton">My Orders</a>        
-        </div>
+        
         <br><br>
         <form id="searchForm" action="SearchServlet" method="post">
         <input type="hidden" name="searchType" value="dropdown" />
@@ -69,6 +69,6 @@
             <button type="submit">Submit</button>
 	</fieldset>
 </form>
-
+    </div>
 </body>
 </html>

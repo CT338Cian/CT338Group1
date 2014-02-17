@@ -28,32 +28,32 @@
     <h1>Account Registration</h1>
     <div style="color: red">${errorMessage}</div>
          
-    <form id="createPersonForm" action="CreateCustomer" method="post">
+    <form id="getInfoForm" action="CreateCustomer" method="post">
     <p>Please complete the register form below.</p>
 		
 		<fieldset class="contact">
 			<legend>User Details</legend>
 			<div>
-				<label for="firstname">First Name</label> <input type="text" id="firstName" name="firstName" required>
+				<label for="firstname">First Name</label> <input type="text" class="squareInput" name="firstName" required>
 			</div>
 			<div>
-				<label for="lastname">Surname</label> <input type="text" id="surname" name="surname" required>
+				<label for="lastname">Surname</label> <input type="text" class="squareInput" name="surname" required>
 			</div>
 			<div>
-				<label for="address">Address</label> <input type="text" id="address" name="address" required>
+				<label for="address">Address</label> <input type="text" class="squareInput" name="address" required>
 			</div>
 			
 			<div>
-				<label for="dob">Date of Birth</label> <input type="text" id="datepicker" name="dob" required>
+				<label for="dob">Date of Birth</label> <input type="text" class="squareInput" name="dob" required>
 			</div>
 			<div>
-				<label for="email">Email</label> <input type="email" id="email" name="email" required>
+				<label for="email">Email</label> <input type="email" class="squareInput" name="email" required>
 			</div>
 			<div>
-				<label for="phone">Phone</label> <input type="text" id="phone" name="phone" required>
+				<label for="phone">Phone</label> <input type="text" class="squareInput" name="phone" required>
 			</div>
 			<div>
-				<label for="password">Password</label> <input type="password" id="password" name="password" required>
+				<label for="password">Password</label> <input type="password" class="squareInput" name="password" required>
 			</div>
 		</fieldset>
                 <br>

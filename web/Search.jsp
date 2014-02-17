@@ -15,6 +15,7 @@
         <h1>Search:</h1>
         
         <form id="searchForm" action="SearchServlet" method="post">
+            <input type="hidden" name="searchType" value="dropdown" />
             Make:
             <select id="make" name="make">
                 <option value="Mazda">Mazda</option>

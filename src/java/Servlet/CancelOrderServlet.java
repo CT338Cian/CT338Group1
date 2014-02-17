@@ -7,7 +7,6 @@
 package Servlet;
 
 import java.io.IOException;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -16,13 +15,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Entities.RentalOrder;
+import javax.annotation.Resource;
+import javax.transaction.UserTransaction;
 
 /**
  *
  * @author Cian
  */
-@WebServlet(name = "SearchServlet", urlPatterns = {"/SearchServlet"})
-public class SearchServlet extends HttpServlet {
+@WebServlet(name = "CancelOrderServlet", urlPatterns = {"/CancelOrderServlet"})
+public class CancelOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,48 +39,33 @@ public class SearchServlet extends HttpServlet {
     @PersistenceUnit
     private EntityManagerFactory emf;
     
+    @Resource
+    private UserTransaction utx;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+            
+        assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
+            int orderNo = Integer.parseInt(request.getParameter("OrderNo"));
+            
+            utx.begin();
+            
             em = emf.createEntityManager();
-            String searchType = request.getParameter("searchType");
-            List searchResults = null;
             
-            if (searchType.equals("dropdown")){
-                System.out.println("Performing dropdown search");
-                String make = request.getParameter("make");
-                System.out.println("make is: " + make);
-                String transmission = request.getParameter("transmission");
-                System.out.println("transmission is: " + transmission);
-                int price = Integer.parseInt(request.getParameter("price"));
-                System.out.println("price is: " + price);
-
-                //return all cars (debug)
-                //searchResults = em.createNamedQuery("Vehicle.findAll").getResultList();
-
-                // run query
-                searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.transmission = :transmission AND v.price < :price")
-                    .setParameter("make", make)
-                    .setParameter("transmission", transmission)
-                    .setParameter("price", price)
-                    .getResultList();
-            }
-            else if (searchType.equals("searchbar")){
-                System.out.println("Performing searchbar search");
-                
-                String searchTerm = request.getParameter("searchterm");
-                
-                searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :searchterm OR v.model = :searchterm")
-                    .setParameter("searchterm", searchTerm)
-                    .getResultList();
-            }
-
-            request.setAttribute("searchResultsList",searchResults);
+            // get order object
+            RentalOrder order = em.find(RentalOrder.class, orderNo);
             
-            request.getRequestDispatcher("SearchResults.jsp").forward(request, response);
-        }catch (Exception ex) {
+            // remove the order from the database. (Also cascades to delete associated transaction)
+            System.out.println("Removing order: " + order.toString());
+            em.remove(order);
+            
+            utx.commit();
+            
+            request.getSession().setAttribute("info","Order cancelled successfully");
+            response.sendRedirect("GetOrdersServlet");
+        } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
             //close the em to release any resources held up by the persistebce provider
@@ -86,7 +73,7 @@ public class SearchServlet extends HttpServlet {
                 em.close();
             }
         }
-        
+            
         
     }
 

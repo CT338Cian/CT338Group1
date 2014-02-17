@@ -21,16 +21,16 @@
     request.getSession().removeAttribute("info");
     %>
          
-    <form action="LoginServlet" method="post">
+    <form class="getInfoForm" action="LoginServlet" method="post">
     <p>Please enter your username and password below.</p>
 		
 		<fieldset>
 			<legend>User Details</legend>
 			<div>
-				<label for="username">Username</label> <input type="text" name="user" required>
+				<label for="username">Username</label> <input type="text" class="squareInput" name="user" required>
 			</div>			
 			<div>
-				<label for="password">Password</label> <input type="password" name="pswd" required>
+				<label for="password">Password</label> <input type="password" class="squareInput" name="pswd" required>
 			</div>
 		</fieldset>
                 <br>

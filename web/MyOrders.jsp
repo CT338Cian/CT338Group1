@@ -18,6 +18,13 @@
     <body>
         <h1>My Orders:</h1>
         
+        <div style="color: red">${error}</div>
+        <div style="color: deepskyblue">${info}</div>
+        <%
+        request.getSession().removeAttribute("error");
+        request.getSession().removeAttribute("info");
+        %>
+        
         <c:if test="${empty orderList}">
             No orders found!
         </c:if>

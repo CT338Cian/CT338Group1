@@ -24,10 +24,10 @@
     <body>
         <img src="resources/images/Header.jpg">
 	<br>
-	<a href="home.jsp" class="blueButton">Home</a>
         <div class="content">
+	<a href="home.jsp" class="blueButton">Home</a>        
         <h2>Rental Dates</h2>
-        <form id="createPersonForm" action="Payment.jsp" method="post">
+        <form class="getInfoForm" action="Payment.jsp" method="post">
     <p>Enter the rental period below.</p>
 		
 		<fieldset class="contact">

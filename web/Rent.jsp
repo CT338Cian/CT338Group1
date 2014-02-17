@@ -51,9 +51,10 @@
 			</div>
                         <div>
 				<label for="coverType">Cover Type</label> <input type="text" id="coverType" name="coverType" required>
-			</div>
+			</div>                        
 		</fieldset>
                 <br>
+                <input type="hidden" name="RegNo" value="<%=request.getParameter("Reg")%>" />
 		<div><button type="submit">Submit</button></div>
 	</form> 
         </div>

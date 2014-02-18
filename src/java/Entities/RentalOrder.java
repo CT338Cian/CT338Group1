@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -42,10 +44,11 @@ public class RentalOrder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy=GenerationType.IDENTITY)    
     @Column(name = "OrderNo")
     private Integer orderNo;
     @Column(name = "OrderDate")
+    @Basic(optional = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
     @Column(name = "StartDate")
@@ -66,9 +69,14 @@ public class RentalOrder implements Serializable {
     public RentalOrder() {
     }
 
-    public RentalOrder(Integer orderNo) {
-        this.orderNo = orderNo;
-    }
+    public RentalOrder(Date startDate, Date endDate, String customerEmail, String vehicleReg) {       
+    this.startDate=startDate;
+    this.endDate=endDate;
+    this.customerEmail = new Customer();
+    this.customerEmail.setEmail(customerEmail);
+    this.vehicleReg = new Vehicle();
+    this.vehicleReg.setReg(vehicleReg);
+            }
 
     public Integer getOrderNo() {
         return orderNo;

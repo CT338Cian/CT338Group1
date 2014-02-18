@@ -41,7 +41,7 @@
             <div class = "receiptpanel"> 
                 Transaction ID: ${transaction.getTransactionID()} <br>
                 Amount: ${transaction.getAmount()} <br>
-                Card Type: ${transaction.getAmount()} <br>
+                Card Type: ${transaction.getCardType()} <br>
                 <a href="<c:url value="CancelOrderServlet">
                            <c:param name="OrderNo" value="${transaction.orderOrderNo.getOrderNo()}"/>
                    </c:url>" class="confirmdelete">Cancel</a>

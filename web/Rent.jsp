@@ -3,7 +3,7 @@
     Created on : 11-Feb-2014, 12:29:43
     Author     : Niall
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,12 @@
         </script>
     </head>
     <body>
+        <c:if test="${empty sessionScope.name}">
+            <c:set var="referer" scope="session" value="${pageContext.request.servletPath}?${pageContext.request.queryString}"/>
+            <c:set var="info" scope="session" value="Please login to do that"/>
+            <c:out value="${pageContext.request.servletPath}?${pageContext.request.queryString}"></c:out>
+            <c:redirect url="Login.jsp"/>
+        </c:if>
         <img src="resources/images/Header.jpg">
 	<br>
         <div class="content">
@@ -56,22 +62,12 @@
 			</div>                        
 		</fieldset>
                 <br>
-                <input type="hidden" name="reg" value="<%=request.getParameter("reg")%>" />
-                <input type="hidden" name="price" value="<%=request.getParameter("price")%>" />
-		<div><button type="submit">Submit</button></div>                
-	</form>
-                <button onclick='myFunction()'>Alert</button>
-                <script>
-                function myFunction()
-                {
-                        var oneDay = 86400000;	//milliseconds
-                        var firstDate = new Date(document.getElementById("datepicker").value);
-                        var secondDate = new Date(document.getElementById("datepicker1").value);
-
-                        var diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
-                        alert("Days: "+diffDays);
-                }
-                </script>
+                                
+                                 <input type="hidden" name="reg" value=<%=request.getParameter("reg")%>>
+                                 
+                                <input type="hidden" name="price" value=<%=request.getParameter("price")%>>
+                                <div><button type="submit">Submit</button></div>
+	</form> 
         </div>
     </body>
 </html>

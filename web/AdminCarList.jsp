@@ -13,6 +13,10 @@
         <title>Car List</title>
     </head>
     <body>
+        <c:if test="${sessionScope.isAdmin == false}">
+            <c:set var="info" scope="session" value="You do not have admin access!"/>
+            <c:redirect url="home.jsp"/>
+        </c:if>
         <div style="color: deepskyblue">${info}</div>
         <h1>Vehicles currently in Database</h1>
     

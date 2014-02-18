@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,6 +7,10 @@
         <title>Admin Add Car Page</title>
     </head>
     <body>
+        <c:if test="${sessionScope.isAdmin == false}">
+            <c:set var="info" scope="session" value="You do not have admin access!"/>
+            <c:redirect url="home.jsp"/>
+        </c:if>
             <div style="color: red">${errorMessage}</div>
 
          <form id="AddCarForm" action="Admin_AddServlet" method="post">

@@ -50,8 +50,12 @@ public class Insurance implements Serializable {
     public Insurance() {
     }
 
-    public Insurance(Integer insuranceNo) {
+    public Insurance(Integer insuranceNo, String provider, String covertype, String email) {
         this.insuranceNo = insuranceNo;
+        this.provider = provider;
+        this.coverType = covertype;
+        this.customerEmail = new Customer();
+        this.customerEmail.setEmail(email);
     }
 
     public Integer getInsuranceNo() {

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,6 +8,10 @@
         <title>Admin Control Page</title>
     </head>
     <body style=" background :#ff4000; padding:0px 0px 10px 0px;">
+        <c:if test="${sessionScope.isAdmin == false}">
+            <c:set var="info" scope="session" value="You do not have admin access!"/>
+            <c:redirect url="home.jsp"/>
+        </c:if>
 	<img src="resources/images/Header.jpg">
 	<br>
 	<div class="content">

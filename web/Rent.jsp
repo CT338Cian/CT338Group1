@@ -16,8 +16,10 @@
         <link rel="stylesheet" type="text/css" href="resources/style.css">
         <script>
         $(function() {
-        $('#datepicker').Zebra_DatePicker({direction: 1});
-        $('#datepicker1').Zebra_DatePicker({direction: 2});
+        $('#datepicker').Zebra_DatePicker({
+            direction: true, 
+            pair: $('#datepicker1')});
+        $('#datepicker1').Zebra_DatePicker({direction: 1});
         });
         </script>
     </head>
@@ -54,9 +56,22 @@
 			</div>                        
 		</fieldset>
                 <br>
-                <input type="hidden" name="RegNo" value="<%=request.getParameter("Reg")%>" />
-		<div><button type="submit">Submit</button></div>
-	</form> 
+                <input type="hidden" name="reg" value="<%=request.getParameter("reg")%>" />
+                <input type="hidden" name="price" value="<%=request.getParameter("price")%>" />
+		<div><button type="submit">Submit</button></div>                
+	</form>
+                <button onclick='myFunction()'>Alert</button>
+                <script>
+                function myFunction()
+                {
+                        var oneDay = 86400000;	//milliseconds
+                        var firstDate = new Date(document.getElementById("datepicker").value);
+                        var secondDate = new Date(document.getElementById("datepicker1").value);
+
+                        var diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+                        alert("Days: "+diffDays);
+                }
+                </script>
         </div>
     </body>
 </html>

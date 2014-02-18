@@ -65,9 +65,23 @@
                                 
                                  <input type="hidden" name="reg" value=<%=request.getParameter("reg")%>>
                                  
-                                <input type="hidden" name="price" value=<%=request.getParameter("price")%>>
-                                <div><button type="submit">Submit</button></div>
-	</form> 
+                                <input type="hidden" name="price" id="priceFn">
+                                <div><button onclick='myFunction()' type="submit">Submit</button></div>
+	</form>
+                                
+                <script>
+                function myFunction()
+                {   
+                    var pricePerDay = <%=request.getParameter("price")%>;    
+                    var totalPrice = document.getElementById("priceFn");                        
+                    var oneDay = 86400000;	//milliseconds per day
+                    var firstDate = new Date(document.getElementById("datepicker").value);
+                    var secondDate = new Date(document.getElementById("datepicker1").value);
+
+                    var diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
+                    totalPrice.value = diffDays*pricePerDay;
+                }
+                </script>
         </div>
     </body>
 </html>

@@ -60,8 +60,11 @@
 			</div>                        
 		</fieldset>
                 <br>
-                <input type="hidden" name="RegNo" value="<%=request.getParameter("Reg")%>" />
-		<div><button type="submit">Submit</button></div>
+                                
+                                 <input type="hidden" name="reg" value=<%=request.getParameter("reg")%>>
+                                 
+                                <input type="hidden" name="price" value=<%=request.getParameter("price")%>>
+                                <div><button type="submit">Submit</button></div>
 	</form> 
         </div>
     </body>

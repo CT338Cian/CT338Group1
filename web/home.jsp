@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
 <body>
+    <div id="wrapper">
     <jsp:include page="navbar.jsp" />
         <img src="resources/images/Header.jpg" id="logo">
         <c:if test="${not empty sessionScope.name}">
@@ -36,7 +37,7 @@
         <a href="Browse" class="blueButton">Browse</a>
         
         <a href="GetOrdersServlet" class="blueButton">My Orders</a>        
-        </div>
+       
         <br><br>
         <form id="searchForm" action="SearchServlet" method="post">
         <input type="hidden" name="searchType" value="dropdown" />
@@ -69,6 +70,6 @@
             <button type="submit">Submit</button>
 	</fieldset>
 </form>
-
+</div>
 </body>
 </html>

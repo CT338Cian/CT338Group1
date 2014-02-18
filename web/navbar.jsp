@@ -24,7 +24,8 @@
 
             <div id = "nav_search">
                 <form method="post" action="SearchServlet">
-                    <input type="text" class="searchbox" placeholder="Search..."><input type="submit" value=">" class="searchbutton">
+                    <input type="hidden" name="searchType" value="searchbar" />
+                    <input type="text" class="searchbox" name="searchterm" placeholder="Search..."><input type="submit" value=">" class="searchbutton">
                 </form>
             </div>
             

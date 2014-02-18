@@ -22,13 +22,13 @@
     <body>
         <img src="resources/images/Header.jpg">
 	<br>
+        <div class="content">
 	<a href="home.jsp" class="blueButton">Home</a>
-	<a href="Login.jsp" class="blueButton">Login</a>
-    <div class="content">
+	<a href="Login.jsp" class="blueButton">Login</a>    
     <h1>Account Registration</h1>
     <div style="color: red">${errorMessage}</div>
          
-    <form id="getInfoForm" action="CreateCustomer" method="post">
+    <form class="getInfoForm" action="CreateCustomer" method="post">
     <p>Please complete the register form below.</p>
 		
 		<fieldset class="contact">

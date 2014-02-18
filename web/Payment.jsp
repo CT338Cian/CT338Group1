@@ -19,8 +19,8 @@
             <h2 id="username"><span>${sessionScope.name}</span></h2>
         </c:if>
 	<br>
-                <a href="Home" class="blueButton">Home</a>
-        <form id="PaymentForm" action="AddOrderServlet" method="post">
+                <a href="home.jsp" class="blueButton">Home</a>
+        <form class="getInfoForm" action="AddOrderServlet" method="post">
             <input type="hidden" name="reg" value=<%=request.getParameter("reg")%>>
             <input type="hidden" name="startDate" value=<%=request.getParameter("startDate")%>>
             <input type="hidden" name="endDate" value=<%=request.getParameter("endDate")%>>
@@ -29,9 +29,10 @@
             <input type="hidden" name="coverType" value=<%=request.getParameter("coverType")%>>
             <input type="hidden" name="price" value=<%=request.getParameter("price")%>>
 
-
-            <h2>Please enter Credit/Debit Card Details:</h2>
-            <div align="left">
+            <fieldset class="contact">
+            <legend>Please enter Credit/Debit Card Details:</legend>
+            <br>
+            <div>
                 <label for="type">Card Type:</label>
                 <select id="type" name="type">
                 <option value="MasterCard">MasterCard</option>
@@ -39,10 +40,12 @@
                 <option value="Visa">Visa</option>
             </select>
             </div>
-            	<div align="left">
-	<label for="cardno">Card No.</label> <input type="number" id="cardno" name="cardno" required>
+            	<div>
+                <label for="cardno">Card No.</label> <input type="text" style="width:90px" id="cardno" name="cardno" required>
 		</div>
-		<div><button type="submit">Submit</button></div>
+            </fieldset>
+            <br>
+            <div><button type="submit">Submit</button></div>
         </form>
                 
                 

@@ -3,7 +3,7 @@
     Created on : 30-Jan-2014, 16:23:39
     Author     : Cian
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +12,10 @@
         <title>Admin - Modify Vehicle</title>
     </head>
     <body>
+        <c:if test="${sessionScope.isAdmin == false}">
+            <c:set var="info" scope="session" value="You do not have admin access!"/>
+            <c:redirect url="home.jsp"/>
+        </c:if>
         <h1>Modify Vehicle</h1>
         <form id="modifyVehicleForm" action="Admin_ModifyServlet" method="post">
             <label>Reg</label> <input type="text" id="reg" name="reg" value="<%=request.getParameter("reg")%>" readonly>

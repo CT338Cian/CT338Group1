@@ -63,7 +63,16 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("AdminPage.jsp");
             }
             else{
-                response.sendRedirect("home.jsp");
+                if (session.getAttribute("referer") != null){
+                    // get referal string (ignoring leading slash)
+                    String referer = ((String)session.getAttribute("referer")).substring(1);
+                    System.out.println("Redirecting back to referer: " + referer);
+                    response.sendRedirect(referer);
+                    session.removeAttribute("referer");
+                }
+                else{
+                    response.sendRedirect("home.jsp");
+                }
             }       
         }
         else{

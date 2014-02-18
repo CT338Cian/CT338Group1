@@ -38,6 +38,12 @@
         <a href="GetOrdersServlet" class="blueButton">My Orders</a>        
        
         <br><br>
+        <div style="color: red">${error}</div>
+        <div style="color: deepskyblue">${info}</div>
+        <%
+        request.getSession().removeAttribute("error");
+        request.getSession().removeAttribute("info");
+        %>
         <form class="getInfoForm" action="SearchServlet" method="post">
         <input type="hidden" name="searchType" value="dropdown" />
 	<fieldset class="contact">

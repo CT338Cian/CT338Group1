@@ -3,7 +3,7 @@
     Created on : 11-Feb-2014, 12:29:43
     Author     : Niall
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,6 +22,12 @@
         </script>
     </head>
     <body>
+        <c:if test="${empty sessionScope.name}">
+            <c:set var="referer" scope="session" value="${pageContext.request.servletPath}?${pageContext.request.queryString}"/>
+            <c:set var="info" scope="session" value="Please login to do that"/>
+            <c:out value="${pageContext.request.servletPath}?${pageContext.request.queryString}"></c:out>
+            <c:redirect url="Login.jsp"/>
+        </c:if>
         <img src="resources/images/Header.jpg">
 	<br>
         <div class="content">

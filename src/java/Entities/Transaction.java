@@ -54,12 +54,11 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
-    public Transaction(Integer Amount, String CardType, Integer cardNo, Integer orderNo) {
+    public Transaction(Integer Amount, String CardType, Integer cardNo, RentalOrder orderNo) {
         this.amount = Amount;
         this.cardType = CardType;
         this.cardNo = cardNo;
-        this.orderOrderNo = new RentalOrder();
-        this.orderOrderNo.setOrderNo(orderNo);
+        this.orderOrderNo = orderNo;
     }
 
     public Integer getTransactionID() {

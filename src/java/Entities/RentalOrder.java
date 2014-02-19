@@ -69,14 +69,12 @@ public class RentalOrder implements Serializable {
     public RentalOrder() {
     }
 
-    public RentalOrder(Date startDate, Date endDate, String customerEmail, String vehicleReg) {       
+    public RentalOrder(Date startDate, Date endDate, Customer customerEmail, Vehicle vehicleReg) {       
     this.startDate=startDate;
     this.endDate=endDate;
-    this.customerEmail = new Customer();
-    this.customerEmail.setEmail(customerEmail);
-    this.vehicleReg = new Vehicle();
-    this.vehicleReg.setReg(vehicleReg);
-            }
+    this.customerEmail = customerEmail;
+    this.vehicleReg = vehicleReg;
+    }
 
     public Integer getOrderNo() {
         return orderNo;

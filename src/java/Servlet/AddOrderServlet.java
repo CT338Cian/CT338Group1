@@ -10,6 +10,7 @@ import Entities.RentalOrder;
 import Entities.Insurance;
 import Entities.Transaction;
 import Entities.Customer;
+import Entities.Vehicle;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,51 +55,64 @@ public class AddOrderServlet extends HttpServlet {
         }
         
         try {
-            
             //Get the data from user's form     
-            String SDate   = (String) request.getParameter("startDate");
-            String EDate   = (String) request.getParameter("endDate");
-            String Email   = (String) session.getAttribute("email");
+            String sDate   = (String) request.getParameter("startDate");
+            String eDate   = (String) request.getParameter("endDate");
+            String email   = (String) session.getAttribute("email");
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date StartDate = formatter.parse(SDate);
-            Date EndDate = formatter.parse(EDate);
+            Date startDate = formatter.parse(sDate);
+            Date endDate = formatter.parse(eDate);
             
             String reg  = (String) request.getParameter("reg");
             Integer insNo   = Integer.parseInt(request.getParameter("insuranceNo"));
             String provider   = (String) request.getParameter("provider");
             String covertype      = (String) request.getParameter("coverType");
-            String Type   = (String) request.getParameter("type");
-            Integer CardNo = Integer.parseInt(request.getParameter("cardno"));
-            Integer Price = Integer.parseInt(request.getParameter("price"));
-       
-            RentalOrder Order = new RentalOrder(StartDate,EndDate,Email,reg);
-           Insurance Insurance = new Insurance(insNo, provider, covertype, Email);
-                  List results = em2.createNamedQuery("Insurance.findByInsuranceNo").setParameter("insuranceNo", insNo).getResultList();
+            String type   = (String) request.getParameter("type");
+            Integer cardNo = Integer.parseInt(request.getParameter("cardno"));
+            Integer price = Integer.parseInt(request.getParameter("price"));
             
+            //get customer object
+            Customer c = (Customer)em2.createNamedQuery("Customer.findByEmail")
+                    .setParameter("email", email)
+                    .getSingleResult();
+            
+            //get vehicle object
+            Vehicle v = (Vehicle)em2.createNamedQuery("Vehicle.findByReg")
+                    .setParameter("reg", reg)
+                    .getSingleResult();
+            
+            // check if insurance number entered already exists
+            List results = em2.createNamedQuery("Insurance.findByInsuranceNo")
+                    .setParameter("insuranceNo", insNo)
+                    .getResultList();
+            
+            Insurance insurance;
             if(!results.isEmpty()){//Check if insurance number already exists
                 request.setAttribute("error","Order with that Insurance number already exists!");
-                request.getRequestDispatcher("Rent.jsp?reg="+reg+"&price="+Price).forward(request, response);//shud print error msg
-            } 
-           
-           
-                //begin a transaction
-                utx.begin();
-                em = emf.createEntityManager();
-                em.persist(Order);
-                em.persist(Insurance);
-                Customer Customer2 = new Customer();
-                Customer2.setEmail(Email);
-                List OrderNo = em.createQuery("SELECT v.orderNo from RentalOrder v WHERE v.customerEmail = :email").setParameter("email", Customer2).getResultList();
-                Transaction Transaction = new Transaction(Price, Type, CardNo, (Integer)OrderNo.get(0));          
-               
-                //set vehicle that was rented to not available
-                em.createQuery("UPDATE Vehicle v SET v.isAvailable = false WHERE v.reg = :reg").setParameter("reg", reg).executeUpdate();
-                em.persist(Transaction);
-                utx.commit();
-                
+                request.getRequestDispatcher("Payment.jsp").forward(request, response);//should print error message
+                return;
+            }
+            else{
+                insurance = new Insurance(insNo, provider, covertype, c);
+            }
+            
+            RentalOrder order = new RentalOrder(startDate, endDate, c, v);
+            Transaction transaction = new Transaction(price, type, cardNo, order);    
+            
+            //set vehicle that was rented to not available
+            v.setIsAvailable(Boolean.FALSE);
+            
+            //begin a transaction
+            utx.begin();
+            em = emf.createEntityManager();
+            em.persist(order);
+            em.persist(insurance);
+            em.persist(transaction);
+            em.merge(v);
+            utx.commit();
 
-                request.getRequestDispatcher("GetOrdersServlet").forward(request, response);
+            request.getRequestDispatcher("GetOrdersServlet").forward(request, response);
             }
          catch (Exception ex) {
             throw new ServletException(ex);

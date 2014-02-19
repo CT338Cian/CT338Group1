@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <title>Car List</title>
     </head>
     <body>
@@ -33,6 +34,7 @@
             <th bgcolor=>Transmission</th>
             <th bgcolor=>Modify?</th>
             <th bgcolor=>Delete?</th>
+            <th bgcolor=>Return?</th>
             
         </tr>
         
@@ -60,7 +62,6 @@
                 </c:url>">
                    Modify</a>&nbsp;&nbsp;</td> 
             <td><a href="<c:url value="DeleteCar.jsp">
-                   <%--<c:param name="reg" value="${vehicle.getReg()}"/>--%>
                    <c:param name="reg" value="${vehicle.getReg()}"/>
                    <c:param name="make" value="${vehicle.getMake()}"/>
                    <c:param name="model" value="${vehicle.getModel()}"/>
@@ -72,10 +73,19 @@
                    <c:param name="transmission" value="${vehicle.getTransmission()}"/>
                 </c:url>">
                    Delete</a>&nbsp;&nbsp;</td> 
-            
-
+            <c:if test="${vehicle.getIsAvailable() == false}">
+            <td><a href="<c:url value="AdminReturnServlet">
+                   <c:param name="reg" value="${vehicle.getReg()}"/>
+                   </c:url>" class="confirmdelete">Return</a>
+            </c:if>
         </tr> 
 
         </c:forEach>
+        
+    <script type="text/javascript">     
+      $('.confirmdelete').on('click', function () {
+        return confirm('Are you sure you want to return this car?');
+      });
+    </script>
     </body>
 </html>

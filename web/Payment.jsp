@@ -19,6 +19,14 @@
             <h2 id="username"><span>${sessionScope.name}</span></h2>
         </c:if>
 	<br>
+        <fieldset class="contact">
+            <legend>Confirm your Order</legend>
+            <br>
+            <p>${param.make} ${param.model}</p>
+            <p> Total Price: €${param.price}
+        </fieldset>
+        
+        
                 <a href="home.jsp" class="blueButton">Home</a>
         <form class="getInfoForm" action="AddOrderServlet" method="post">
             <input type="hidden" name="reg" value=<%=request.getParameter("reg")%>>
@@ -45,7 +53,7 @@
 		</div>
             </fieldset>
             <br>
-            <div><button type="submit">Submit</button></div>
+            <div><button type="submit">Confirm Order</button></div>
         </form>
                 
                 

@@ -33,8 +33,7 @@
       <p>Transmission: ${vehicle.getTransmission()}</p>
       
             <a href="<c:url value="Rent.jsp">
-                   <c:param name="reg" value="${vehicle.getReg()}"/>
-                   <c:param name="price" value="${vehicle.getPrice()}"/>
+                <c:set var="requestedVehicle" scope="session" value="${vehicle}"/>
                 </c:url>" class="blueButton">
           Rent Car
       </a>

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Entities.RentalOrder;
+import Entities.Transaction;
+import Entities.Vehicle;
 import javax.annotation.Resource;
 import javax.transaction.UserTransaction;
 
@@ -57,9 +59,20 @@ public class CancelOrderServlet extends HttpServlet {
             // get order object
             RentalOrder order = em.find(RentalOrder.class, orderNo);
             
-            // remove the order from the database. (Also cascades to delete associated transaction)
-            System.out.println("Removing order: " + order.toString());
+            // get transaction object
+            Transaction trans = (Transaction)em.createNamedQuery("Transaction.findByOrderNo")
+                    .setParameter("orderNo", order)
+                    .getSingleResult();
+            
+            // get vehicle object and set available to true
+            Vehicle vehicle = em.find(Vehicle.class, order.getVehicleReg().getReg());
+            vehicle.setIsAvailable(Boolean.TRUE);
+            
+            // remove the order and transaction from the database, and update the vehicle
+            System.out.println("Removing order: " + order.toString() + " with transaction: " + trans.toString());
+            em.remove(trans);
             em.remove(order);
+            em.persist(vehicle);
             
             utx.commit();
             

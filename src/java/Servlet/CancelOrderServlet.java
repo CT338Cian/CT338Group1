@@ -66,6 +66,7 @@ public class CancelOrderServlet extends HttpServlet {
             utx.begin();
             em = emf.createEntityManager();
             
+            
             // get customer object
             Customer customer = em.find(Customer.class, custEmail);
             

@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="resources/style.css">
         <title>Admin - Modify Vehicle</title>
     </head>
     <body>
@@ -17,24 +18,36 @@
             <c:redirect url="home.jsp"/>
         </c:if>
         <h1>Modify Vehicle</h1>
-        <form id="modifyVehicleForm" action="Admin_ModifyServlet" method="post">
+        <form class="getInfoForm" action="Admin_ModifyServlet" method="post">
+	<fieldset>
+            <div>
             <label>Reg</label> <input type="text" id="reg" name="reg" value="${param.reg}" readonly>
-            <br>
+            </div>
+            <div>
             <label>Make</label> <input type="text" id="make" name="make"  value="${param.make}"required>
-            <br>
+            </div>
+            <div>
             <label>Model</label> <input type="text" id="model" name="model" value="${param.model}" required>
-            <br>
+            </div>
+            <div>
             <label>Year</label> <input type="text" id="year" name="year" value="${param.year}" required>
-            <br>
+            </div>
+            <div>
             <label>Colour</label> <input type="text" id="colour" name="colour" value="${param.colour}" required>
-            <br>
+            </div>
+            <div>
             <label>EngineCC</label> <input type="text" id="enginecc" name="enginecc" value="${param.enginecc}" required>
-            <br>
+            </div>
+            <div>
             <label>Price</label> <input type="text" id="price" name="price" value="${param.price}" required>
-            <br>
+            </div>
+            <div>
             <label>Fuel Type</label> <input type="text" id="fueltype" name="fueltype" value="${param.fueltype}" required>
-            <br>
+            </div>
+            <div>
             <label>Transmission</label> <input type="text" id="transmission" name="transmission" value="${param.transmission}" required> 
+            </div>
+            </fieldset>
             <br>
             <button type="submit">Submit</button>
         </form>

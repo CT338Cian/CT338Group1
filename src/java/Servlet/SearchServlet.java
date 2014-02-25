@@ -71,7 +71,7 @@ public class SearchServlet extends HttpServlet {
                 String searchTerm = request.getParameter("searchterm");
                 System.out.println("Performing search for: " + searchTerm);
                 
-                searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :searchterm OR v.model = :searchterm")
+                searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :searchterm OR v.model = :searchterm AND v.isAvailable=1")
                     .setParameter("searchterm", searchTerm)
                     .getResultList();
             }

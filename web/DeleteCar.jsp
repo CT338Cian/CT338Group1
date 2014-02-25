@@ -32,21 +32,21 @@
         </tr>        
         
         <tr>    
-            <td><%=request.getParameter("reg")%>&nbsp;</td> 
-            <td><%=request.getParameter("make")%>&nbsp;</td>
-            <td><%=request.getParameter("model")%>&nbsp;</td>
-            <td><%=request.getParameter("year")%>&nbsp;</td>
-            <td><%=request.getParameter("colour")%>&nbsp;</td>
-            <td><%=request.getParameter("enginecc")%>&nbsp;</td>
-            <td><%=request.getParameter("price")%>&nbsp;</td>
-            <td><%=request.getParameter("fueltype")%>&nbsp;</td>
-            <td><%=request.getParameter("transmission")%>&nbsp;</td>
+            <td>${param.reg}&nbsp;</td> 
+            <td>${param.make}&nbsp;</td>
+            <td>${param.model}&nbsp;</td>
+            <td>${param.year}&nbsp;</td>
+            <td>${param.colour}&nbsp;</td>
+            <td>${param.enginecc}&nbsp;</td>
+            <td>${param.price}&nbsp;</td>
+            <td>${param.fueltype}&nbsp;</td>
+            <td>${param.transmission}&nbsp;</td>
         </tr> 
         </table>
         
         <br>
         <a href="<c:url value="Admin_DeleteServlet">
-                   <c:param name="reg" value="<%=request.getParameter("reg")%>"/>                   
+                   <c:param name="reg" value="${param.reg}"/>                   
            </c:url>" class="blueButton">Delete</a>
     </body>
 </html>

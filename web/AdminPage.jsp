@@ -8,7 +8,7 @@
         <title>Admin Control Page</title>
     </head>
     <body style=" background :#ff4000; padding:0px 0px 10px 0px;">
-        <c:if test="${sessionScope.isAdmin == false}">
+        <c:if test="${sessionScope.isAdmin == null || sessionScope.isAdmin == false}">
             <c:set var="info" scope="session" value="You do not have admin access!"/>
             <c:redirect url="home.jsp"/>
         </c:if>

@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+
 <html>
 	<head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
@@ -16,10 +18,8 @@
     <h1>Login</h1>
     <div style="color: red">${error}</div>
     <div style="color: deepskyblue">${info}</div>
-    <%
-    request.getSession().removeAttribute("error");
-    request.getSession().removeAttribute("info");
-    %>
+    <c:remove var="error" scope="session" />
+    <c:remove var="info" scope="session" />
          
     <form class="getInfoForm" action="LoginServlet" method="post">
     <p>Please enter your username and password below.</p>

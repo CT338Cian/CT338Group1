@@ -14,9 +14,11 @@
     </head>
     <body>
         <div id = "navbar">
+            <a href="home.jsp">
             <div id = "nav_title">
-                TITLE
+                CarRental.ie
             </div>
+            </a>
  
             <div id = "nav_browse">
                 <a href="Browse">Browse</a> 

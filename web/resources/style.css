@@ -203,10 +203,13 @@ fieldset {
 #nav_title{
   display: inline;
   text-align:center;
+  color:white;
+  font-size: x-large;
 }
 
 #nav_browse{
   float:left;
+  margin-top: 5px;
   text-align: left;
   padding-left: 5%;
   width: 10%;
@@ -219,12 +222,14 @@ fieldset {
 }
 #nav_r1{
   float:right;
+  margin-top: 5px;
   text-align: right;
   padding-right:5%;
   width: 15%;
 }
 #nav_r2{
   float:right;
+  margin-top: 5px;
   text-align: right;
   padding-right:5%;
   width: 15%;
@@ -239,9 +244,9 @@ fieldset {
     top: 0;
     width: 960px;
     color: white;
-    height: 35px;
+    height: 40px;
     text-align: center;
-    padding-top: 15px;
+    padding-top: 10px;
     /* Adds shadow to the bottom of the bar */
     -webkit-box-shadow: 0px 0px 8px 0px #000000;
     -moz-box-shadow: 0px 0px 8px 0px #000000;
@@ -309,4 +314,5 @@ fieldset {
 
 #logo{
     width: 960px;
+    margin-top: 50px;
 }

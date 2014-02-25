@@ -14,7 +14,9 @@
         <title>Car Information</title>
     </head>
     <body>
-        <img src="resources/images/Header.jpg">
+        <div id="wrapper">
+    <jsp:include page="navbar.jsp" />
+        <img src="resources/images/Header.jpg" id="logo">
 	<br>
         <div class="content">
 	<a href="home.jsp" class="blueButton">Home</a>	       
@@ -39,6 +41,7 @@
       </a>
        </c:forEach>
       </div>
+        </div>
         </body>
 </
 </html>

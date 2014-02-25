@@ -21,29 +21,11 @@
             <h2 id="username"><span>${sessionScope.name}</span></h2>
         </c:if>
 	<br>
-        <c:choose>
-            <c:when test="${empty sessionScope.name}">
-                <a href="Login.jsp" class="blueButton">Login</a> 
-            </c:when>
-            <c:otherwise>
-                <a href="LogoutServlet" class="blueButton">Logout</a>
-            </c:otherwise>
-        </c:choose>
-	<c:if test="${empty sessionScope.name}">
-        <a href="CreateCustomer.jsp" class="blueButton">Register</a> 
-	</c:if>
-        
-        <a href="Browse" class="blueButton">Browse</a>
-        
-        <a href="GetOrdersServlet" class="blueButton">My Orders</a>        
-       
-        <br><br>
+        <br>
         <div style="color: red">${error}</div>
         <div style="color: deepskyblue">${info}</div>
-        <%
-        request.getSession().removeAttribute("error");
-        request.getSession().removeAttribute("info");
-        %>
+        <c:remove var="error" scope="session" />
+        <c:remove var="info" scope="session" />
         <form class="getInfoForm" action="SearchServlet" method="post">
         <input type="hidden" name="searchType" value="dropdown" />
 	<fieldset class="contact">

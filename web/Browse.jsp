@@ -14,6 +14,8 @@
         <title>Vehicles to Rent</title>
     </head>
     <body>
+    <div id="wrapper">
+    <jsp:include page="navbar.jsp" />
         <img src="resources/images/Header.jpg" id="logo">
         <c:if test="${not empty sessionScope.name}">
             <h2 id="username"><span>${sessionScope.name}</span></h2>
@@ -58,6 +60,7 @@
                 </c:forEach>
             </ul>
         </div>
-     </div>     
+     </div>   
+    </div>
     </body>
 </html>

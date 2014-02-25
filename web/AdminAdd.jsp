@@ -19,7 +19,7 @@
         </c:if>
             <div style="color: red">${errorMessage}</div>
 
-         <form id="AddCarForm" action="Admin_AddServlet" method="post">
+         <form class="getInfoForm" action="Admin_AddServlet" method="post">
     <p>Please enter details for new Car.</p>
 		
 		<fieldset class="contact">

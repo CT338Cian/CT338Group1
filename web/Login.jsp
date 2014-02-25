@@ -8,8 +8,12 @@
 		<title>Login Page</title>
     </head>
     <body>
-        <img src="resources/images/Header.jpg">
-	<br>
+<div id="wrapper">
+    <jsp:include page="navbar.jsp" />
+        <img src="resources/images/Header.jpg" id="logo">
+        <c:if test="${not empty sessionScope.name}">
+            <h2 id="username"><span>${sessionScope.name}</span></h2>
+        </c:if>	<br>
         <div class="content">
 	<a href="home.jsp" class="blueButton">Home</a>
 	<a href="CreateCustomer.jsp" class="blueButton">Register</a>
@@ -37,5 +41,6 @@
 		<div><button type="submit">Login</button></div>
 	</form>
     </div>
+</div>
 </body>
 </html>

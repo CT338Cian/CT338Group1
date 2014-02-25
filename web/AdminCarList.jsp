@@ -14,6 +14,12 @@
         <title>Car List</title>
     </head>
     <body>
+        <div id="wrapper">
+    <jsp:include page="navbar.jsp" />
+        <img src="resources/images/Header.jpg" id="logo">
+        <c:if test="${not empty sessionScope.name}">
+            <h2 id="username"><span>${sessionScope.name}</span></h2>
+        </c:if>
         <c:if test="${sessionScope.isAdmin == null || sessionScope.isAdmin == false}">
             <c:set var="info" scope="session" value="You do not have admin access!"/>
             <c:redirect url="home.jsp"/>

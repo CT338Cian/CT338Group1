@@ -62,7 +62,7 @@
                 <input type="hidden" name="reg" value="${sessionScope.requestedVehicle.getReg()}">
                 <input type="hidden" name="make" value="${sessionScope.requestedVehicle.getMake()}">
                 <input type="hidden" name="model" value="${sessionScope.requestedVehicle.getModel()}">
-                <input type="hidden" name="price" id="finalPrice" value="">
+                <input type="hidden" name="price" id="finalPriceVal" value="">
                 <div>
                     <button type="submit">Submit</button>
                 </div>
@@ -95,6 +95,7 @@
                         var secondDate = new Date($('#endDate').val());
                         var diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
                         $('#finalPrice').html("Final Price: €" + diffDays*pricePerDay);
+                        $('#finalPriceVal').val(diffDays*pricePerDay);
                     }
                 }
        </script>

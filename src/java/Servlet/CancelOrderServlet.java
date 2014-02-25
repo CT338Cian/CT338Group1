@@ -6,6 +6,7 @@
 
 package Servlet;
 
+import Entities.Customer;
 import java.io.IOException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,6 +20,7 @@ import Entities.RentalOrder;
 import Entities.Transaction;
 import Entities.Vehicle;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 /**
@@ -50,14 +52,31 @@ public class CancelOrderServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
+            HttpSession session = request.getSession();
+            String custEmail = (String)session.getAttribute("email");
+            
+            if (custEmail == null){
+                session.setAttribute("error","You need to be logged in to do that");
+                response.sendRedirect("Login.jsp");
+                return;
+            }
+            
             int orderNo = Integer.parseInt(request.getParameter("OrderNo"));
             
             utx.begin();
-            
             em = emf.createEntityManager();
+            
+            // get customer object
+            Customer customer = em.find(Customer.class, custEmail);
             
             // get order object
             RentalOrder order = em.find(RentalOrder.class, orderNo);
+            
+            if (!order.getCustomerEmail().equals(customer)){
+                session.setAttribute("error","You can't delete orders that are not yours!");
+                response.sendRedirect("home.jsp");
+                return;
+            }
             
             // get transaction object
             Transaction trans = (Transaction)em.createNamedQuery("Transaction.findByOrderNo")

@@ -15,6 +15,12 @@
         <link rel="stylesheet" type="text/css" href="resources/style.css">
     </head>
     <body>
+        <div id="wrapper">
+    <jsp:include page="navbar.jsp" />
+        <img src="resources/images/Header.jpg" id="logo">
+        <c:if test="${not empty sessionScope.name}">
+            <h2 id="username"><span>${sessionScope.name}</span></h2>
+        </c:if>
         <div style="color: red">${errorMessage}</div>
         <h1>Are you sure you want to delete this vehicle?</h1>
         <table id="vehicles" border="3">
@@ -48,5 +54,6 @@
         <a href="<c:url value="Admin_DeleteServlet">
                    <c:param name="reg" value="${param.reg}"/>                   
            </c:url>" class="blueButton">Delete</a>
+        </div>
     </body>
 </html>

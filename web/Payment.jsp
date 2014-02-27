@@ -14,8 +14,11 @@
         <link rel="stylesheet" type="text/css" href="resources/style.css">
     </head>
     <body>
-                <img src="resources/images/Header.jpg">
-                       <c:if test="${not empty sessionScope.name}">
+
+                <div id="wrapper">
+    <jsp:include page="navbar.jsp" />
+        <img src="resources/images/Header.jpg" id="logo">
+        <c:if test="${not empty sessionScope.name}">
             <h2 id="username"><span>${sessionScope.name}</span></h2>
         </c:if>
 	<br>
@@ -27,7 +30,6 @@
         </fieldset>
         
         
-                <a href="home.jsp" class="blueButton">Home</a>
         <form class="getInfoForm" action="AddOrderServlet" method="post">
             <input type="hidden" name="reg" value=<%=request.getParameter("reg")%>>
             <input type="hidden" name="startDate" value=<%=request.getParameter("startDate")%>>
@@ -56,6 +58,6 @@
             <div><button type="submit">Confirm Order</button></div>
         </form>
                 
-                
+                </div> 
     </body>
 </html>

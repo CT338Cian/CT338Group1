@@ -16,6 +16,12 @@
         <title>My Orders</title>
     </head>
     <body>
+        <div id="wrapper">
+    <jsp:include page="navbar.jsp" />
+        <img src="resources/images/Header.jpg" id="logo">
+        <c:if test="${not empty sessionScope.name}">
+            <h2 id="username"><span>${sessionScope.name}</span></h2>
+        </c:if>
         <h1>My Orders:</h1>
         
         <div style="color: red">${error}</div>

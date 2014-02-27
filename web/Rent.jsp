@@ -21,10 +21,14 @@
             <c:set var="info" scope="session" value="Please login to do that"/>
             <c:redirect url="Login.jsp"/>
         </c:if>
-        <img src="resources/images/Header.jpg">
+            <div id="wrapper">
+    <jsp:include page="navbar.jsp" />
+        <img src="resources/images/Header.jpg" id="logo">
+        <c:if test="${not empty sessionScope.name}">
+            <h2 id="username"><span>${sessionScope.name}</span></h2>
+        </c:if>
 	<br>
         <div class="content">
-            <a href="home.jsp" class="blueButton">Home</a>        
             <h2>Rental Dates</h2>
             <form class="getInfoForm" action="Payment.jsp" method="post">
                 <p>${sessionScope.requestedVehicle.getMake()} ${sessionScope.requestedVehicle.getModel()}</p>
@@ -99,5 +103,6 @@
                     }
                 }
        </script>
+            </div>
     </body>
 </html>

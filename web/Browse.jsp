@@ -22,21 +22,7 @@
         </c:if>
 	<br>
         <div class="content">
-        <a href="home.jsp" class="blueButton">Home</a>
-        
-	<c:if test="${empty sessionScope.name}">
-	<a href="Login.jsp" class="blueButton">Login</a>
-        </c:if>		
-        
-        <c:if test="${not empty sessionScope.name}">
-	<a href="LogoutServlet" class="blueButton">Logout</a>
-        </c:if>
-        
-	<c:if test="${empty sessionScope.name}">
-	<a href="CreateCustomer.jsp" class="blueButton">Register</a> 
-        </c:if>        
-        
-        
+               
         <c:if test="${empty searchResultsList}">
             No results matched your query!
         </c:if>

@@ -17,9 +17,10 @@
         <div id="wrapper">
     <jsp:include page="navbar.jsp" />
         <img src="resources/images/Header.jpg" id="logo">
-	<br>
-        <div class="content">
-	<a href="home.jsp" class="blueButton">Home</a>	       
+        <c:if test="${not empty sessionScope.name}">
+            <h2 id="username"><span>${sessionScope.name}</span></h2>
+        </c:if>
+        <div class="content">       
        
         <div style="color: red">${errorMessage}</div>
         

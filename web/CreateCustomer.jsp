@@ -20,11 +20,13 @@
         </script>
     </head>
     <body>
-        <img src="resources/images/Header.jpg">
-	<br>
         <div class="content">
-	<a href="home.jsp" class="blueButton">Home</a>
-	<a href="Login.jsp" class="blueButton">Login</a>    
+<div id="wrapper">
+    <jsp:include page="navbar.jsp" />
+        <img src="resources/images/Header.jpg" id="logo">
+        <c:if test="${not empty sessionScope.name}">
+            <h2 id="username"><span>${sessionScope.name}</span></h2>
+        </c:if>   
     <h1>Account Registration</h1>
     <div style="color: red">${errorMessage}</div>
          

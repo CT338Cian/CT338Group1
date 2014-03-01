@@ -14,53 +14,53 @@
         <link rel="stylesheet" href="resources/zebra/default.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="resources/style.css">
         <script>
-        $(function() {
-        $('#datepicker').Zebra_DatePicker({view: 'years'});
-        });
+            $(function() {
+                $('#datepicker').Zebra_DatePicker({view: 'years'});
+            });
         </script>
     </head>
     <body>
         <div class="content">
-<div id="wrapper">
-    <jsp:include page="navbar.jsp" />
-        <img src="resources/images/Header.jpg" id="logo">
-        <c:if test="${not empty sessionScope.name}">
-            <h2 id="username"><span>${sessionScope.name}</span></h2>
-        </c:if>   
-    <h1>Account Registration</h1>
-    <div style="color: red">${errorMessage}</div>
-         
-    <form class="getInfoForm" action="CreateCustomer" method="post">
-    <p>Please complete the register form below.</p>
-		
-		<fieldset class="contact">
-			<legend>User Details</legend>
-			<div>
-				<label for="firstname">First Name</label> <input type="text" class="squareInput" name="firstName" required>
-			</div>
-			<div>
-				<label for="lastname">Surname</label> <input type="text" class="squareInput" name="surname" required>
-			</div>
-			<div>
-				<label for="address">Address</label> <input type="text" class="squareInput" name="address" required>
-			</div>
-			
-			<div>
-				<label for="dob">Date of Birth</label> <input type="text" class="squareInput" name="dob" required>
-			</div>
-			<div>
-				<label for="email">Email</label> <input type="email" class="squareInput" name="email" required>
-			</div>
-			<div>
-				<label for="phone">Phone</label> <input type="text" class="squareInput" name="phone" required>
-			</div>
-			<div>
-				<label for="password">Password</label> <input type="password" class="squareInput" name="password" required>
-			</div>
-		</fieldset>
-                <br>
-		<div><button type="submit">Submit</button></div>
-	</form> 
-    </div>
-</body>
+            <div id="wrapper">
+                <jsp:include page="navbar.jsp" />
+                <img src="resources/images/Header.jpg" id="logo">
+                <c:if test="${not empty sessionScope.name}">
+                    <h2 id="username"><span>${sessionScope.name}</span></h2>
+                        </c:if>   
+                <h1>Account Registration</h1>
+                <div style="color: red">${errorMessage}</div>
+
+                <form class="getInfoForm" action="CreateCustomer" method="post">
+                    <p>Please complete the register form below.</p>
+
+                    <fieldset class="contact">
+                        <legend>User Details</legend>
+                        <div>
+                            <label for="firstname">First Name</label> <input type="text" class="squareInput" name="firstName" required>
+                        </div>
+                        <div>
+                            <label for="lastname">Surname</label> <input type="text" class="squareInput" name="surname" required>
+                        </div>
+                        <div>
+                            <label for="address">Address</label> <input type="text" class="squareInput" name="address" required>
+                        </div>
+
+                        <div>
+                            <label for="dob">Date of Birth</label> <input type="text" class="squareInput" name="dob" required>
+                        </div>
+                        <div>
+                            <label for="email">Email</label> <input type="email" class="squareInput" name="email" required>
+                        </div>
+                        <div>
+                            <label for="phone">Phone</label> <input type="text" class="squareInput" name="phone" required>
+                        </div>
+                        <div>
+                            <label for="password">Password</label> <input type="password" class="squareInput" name="password" required>
+                        </div>
+                    </fieldset>
+                    <br>
+                    <div><button type="submit">Submit</button></div>
+                </form> 
+            </div>
+    </body>
 </html>

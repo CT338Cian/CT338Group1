@@ -42,42 +42,51 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
             
         EntityManager em = null;
-        em = emf.createEntityManager();
-        
-        String user = request.getParameter("user");
-        String pass = request.getParameter("pswd");
-   
-        if(LoginValidator.validateUser(user, pass)){ //if email and password match in DB
-            System.out.println("User "+user+" logged in.");
-            // get customer details from database
-            Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
-                    .setParameter("email", user)
-                    .getSingleResult();
-            //create http session and set required attributes
-            HttpSession session = request.getSession();
-            session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
-            session.setAttribute("name", c.getFName());
-            session.setAttribute("email", c.getEmail());
-            session.setAttribute("isAdmin", c.getIsAdmin());
-            if (c.getIsAdmin()){
-                response.sendRedirect("AdminPage.jsp");
-            }
-            else{
-                if (session.getAttribute("referer") != null){
-                    // get referal string (ignoring leading slash)
-                    String referer = ((String)session.getAttribute("referer")).substring(1);
-                    System.out.println("Redirecting back to referer: " + referer);
-                    response.sendRedirect(referer);
-                    session.removeAttribute("referer");
+        try{
+            em = emf.createEntityManager();
+
+            String user = request.getParameter("user");
+            String pass = request.getParameter("pswd");
+
+            if(LoginValidator.validateUser(user, pass)){ //if email and password match in DB
+                System.out.println("User "+user+" logged in.");
+                // get customer details from database
+                Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
+                        .setParameter("email", user)
+                        .getSingleResult();
+                //create http session and set required attributes
+                HttpSession session = request.getSession();
+                session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
+                session.setAttribute("name", c.getFName());
+                session.setAttribute("email", c.getEmail());
+                session.setAttribute("isAdmin", c.getIsAdmin());
+                if (c.getIsAdmin()){
+                    response.sendRedirect("AdminPage.jsp");
                 }
                 else{
-                    response.sendRedirect("home.jsp");
-                }
-            }       
-        }
-        else{
-            request.getSession().setAttribute("error","Username or password incorrect");
-            response.sendRedirect("Login.jsp");
+                    if (session.getAttribute("referer") != null){
+                        // get referal string (ignoring leading slash)
+                        String referer = ((String)session.getAttribute("referer")).substring(1);
+                        System.out.println("Redirecting back to referer: " + referer);
+                        response.sendRedirect(referer);
+                        session.removeAttribute("referer");
+                    }
+                    else{
+                        response.sendRedirect("home.jsp");
+                    }
+                }       
+            }
+            else{
+                request.getSession().setAttribute("error","Username or password incorrect");
+                response.sendRedirect("Login.jsp");
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }finally{
+            //close the em to release any resources held up by the persistebce provider
+            if(em != null) {
+                em.close();
+            }
         }
         
     }

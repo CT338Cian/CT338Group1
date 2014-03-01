@@ -15,11 +15,11 @@
     <body>
         <div id = "navbar">
             <a href="home.jsp">
-            <div id = "nav_title">
-                CarRental.ie
-            </div>
+                <div id = "nav_title">
+                    CarRental.ie
+                </div>
             </a>
- 
+
             <div id = "nav_browse">
                 <a href="Browse">Browse</a> 
             </div>
@@ -30,7 +30,7 @@
                     <input type="text" class="searchbox" name="searchterm" placeholder="Search..."><input type="submit" value=">" class="searchbutton">
                 </form>
             </div>
-            
+
             <div id = "nav_r2">
                 <c:choose>
                     <c:when test="${empty sessionScope.name}">
@@ -40,7 +40,7 @@
                         <a href="LogoutServlet">Logout</a>
                     </c:otherwise>
                 </c:choose>
-                  
+
             </div>
 
             <div id = "nav_r1">
@@ -54,9 +54,9 @@
                 </c:choose>
             </div>
 
-            
-  
+
+
         </div>
-                   
+
     </body>
 </html>

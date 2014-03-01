@@ -111,8 +111,12 @@ public class AddOrderServlet extends HttpServlet {
             em.persist(transaction);
             em.merge(v);
             utx.commit();
-
-            request.getRequestDispatcher("GetOrdersServlet").forward(request, response);
+            
+            
+            request.setAttribute("vehicle", v);
+            request.setAttribute("order", order);
+            request.setAttribute("orderCompleted", true);
+            request.getRequestDispatcher("OrderConfirmed.jsp").forward(request, response);
             }
          catch (Exception ex) {
             throw new ServletException(ex);

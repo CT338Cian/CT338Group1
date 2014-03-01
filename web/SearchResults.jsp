@@ -15,36 +15,36 @@
     </head>
     <body>
         <div id="wrapper">
-    <jsp:include page="navbar.jsp" />
-        <img src="resources/images/Header.jpg" id="logo">
-        <c:if test="${not empty sessionScope.name}">
-            <h2 id="username"><span>${sessionScope.name}</span></h2>
-        </c:if>
-        <h1>Search Results:</h1>
-        
-        <c:if test="${empty searchResultsList}">
-            No results matched your query!
-        </c:if>
-        
-        <div id="carlistdiv" class="carlistdiv">
-            <ul class="carlist">
-                <c:forEach var="vehicle" begin="0" items="${searchResultsList}">
-                <li>
-                    <a href="<c:url value="GetCarInfoServlet">
-                           <c:param name="Reg" value="${vehicle.getReg()}"/>
-                            </c:url>" class="inner">
-			<div class="li-img">
-				<img src="${vehicle.getImagePath()}" alt="Image not found!" />
-			</div>
-			<div class="li-text">
-                            <h4 class="li-head">${vehicle.getMake()} ${vehicle.getModel()}</h4>
-                            <p class="li-sub">€${vehicle.getPrice()}</p>
-			</div>
-                    </a>
-		</li>
-                </c:forEach>
-            </ul>
-        </div>
+            <jsp:include page="navbar.jsp" />
+            <img src="resources/images/Header.jpg" id="logo">
+            <c:if test="${not empty sessionScope.name}">
+                <h2 id="username"><span>${sessionScope.name}</span></h2>
+                    </c:if>
+            <h1>Search Results:</h1>
+
+            <c:if test="${empty searchResultsList}">
+                No results matched your query!
+            </c:if>
+
+            <div id="carlistdiv" class="carlistdiv">
+                <ul class="carlist">
+                    <c:forEach var="vehicle" begin="0" items="${searchResultsList}">
+                        <li>
+                            <a href="<c:url value="GetCarInfoServlet">
+                                   <c:param name="Reg" value="${vehicle.getReg()}"/>
+                               </c:url>" class="inner">
+                                <div class="li-img">
+                                    <img src="${vehicle.getImagePath()}" alt="Image not found!" />
+                                </div>
+                                <div class="li-text">
+                                    <h4 class="li-head">${vehicle.getMake()} ${vehicle.getModel()}</h4>
+                                    <p class="li-sub">€${vehicle.getPrice()}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
         </div>
     </body>
 </html>

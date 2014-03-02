@@ -40,9 +40,9 @@ public class Admin_DeleteServlet extends HttpServlet {
        EntityManager em = null;
        
        try {
-                utx.begin();
-                //Create an em. Since the em is created inside a transaction, it is associsated with the transaction
-                em = emf.createEntityManager();
+            utx.begin();
+            //Create an em. Since the em is created inside a transaction, it is associsated with the transaction
+            em = emf.createEntityManager();
             
             //Get the data from user's form            
             String reg  = (String) request.getParameter("reg");            
@@ -60,7 +60,6 @@ public class Admin_DeleteServlet extends HttpServlet {
    
             else{
                 System.out.println("Car with reg #"+reg+" Deleted");
-//                request.getRequestDispatcher("Admin_GetAllVehiclesServlet").forward(request, response);
                 response.sendRedirect("Admin_GetAllVehiclesServlet");
             }
             

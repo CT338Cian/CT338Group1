@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Search:</h1>
-        
+
         <form id="searchForm" action="SearchServlet" method="post">
             <input type="hidden" name="searchType" value="dropdown" />
             Make:
@@ -38,7 +38,7 @@
                 <option value="2500"><2500</option>
                 <option value="5000"><5000</option>
                 <option value="10000"><10000</option>
-                
+
             </select>
             <button type="submit">Submit</button>
         </form>

@@ -7,7 +7,6 @@
 package Servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -38,7 +37,7 @@ public class GetCarInfoServlet extends HttpServlet {
             String Reg  = (String) request.getParameter("Reg");
             List results = em.createQuery("SELECT v FROM Vehicle v WHERE v.reg = :reg").setParameter("reg", Reg).getResultList();
   
-            if(results.size()!=0){
+            if(!results.isEmpty()){
                         request.setAttribute("VehicleInfo",results);
                         request.getRequestDispatcher("GetCarInfo.jsp").forward(request, response);
             }

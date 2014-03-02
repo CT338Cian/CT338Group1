@@ -3,33 +3,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" type="text/css" href="resources/style.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="resources/style.css">
         <title>Admin Control Page</title>
     </head>
     <body>
 
-     <div id="wrapper">
-    <jsp:include page="navbar.jsp" />
-        <img src="resources/images/Header.jpg" id="logo">
-        <c:if test="${not empty sessionScope.name}">
-            <h2 id="username"><span>${sessionScope.name}</span></h2>
-        </c:if>
-        <c:if test="${sessionScope.isAdmin == null || sessionScope.isAdmin == false}">
-            <c:set var="info" scope="session" value="You do not have admin access!"/>
-            <c:redirect url="home.jsp"/>
-        </c:if>
-	
-	<div style=" background :#ff4000; padding:0px 0px 10px 0px; margin-top: 0px">
-            <div class="content">
-            <h1 style=" margin-top: 0px">Welcome to the Admin Control Panel</h1>
-            <h2>Please Select Action:</h2>
+        <div id="wrapper">
+            <jsp:include page="navbar.jsp" />
+            <img src="resources/images/Header.jpg" id="logo">
+            <c:if test="${not empty sessionScope.name}">
+                <h2 id="username"><span>${sessionScope.name}</span></h2>
+                    </c:if>
+                    <c:if test="${sessionScope.isAdmin == null || sessionScope.isAdmin == false}">
+                        <c:set var="info" scope="session" value="You do not have admin access!"/>
+                        <c:redirect url="home.jsp"/>
+                    </c:if>
 
-	<a href="AdminAdd.jsp" class="blueButton">Add Car</a>         
-        <a href="ListPerson" class="blueButton" style="width: 110px" >Customer List</a>         
-        <a href="Admin_GetAllVehiclesServlet" class="blueButton" style="width:110px">Vehicles List</a>
+            <div style=" background :#ff4000; padding:0px 0px 10px 0px; margin-top: 0px">
+                <div class="content">
+                    <h1 style=" margin-top: 0px">Welcome to the Admin Control Panel</h1>
+                    <h2>Please Select Action:</h2>
+
+                    <a href="AdminAdd.jsp" class="blueButton">Add Car</a>         
+                    <a href="ListPerson" class="blueButton" style="width: 110px" >Customer List</a>         
+                    <a href="Admin_GetAllVehiclesServlet" class="blueButton" style="width:110px">Vehicles List</a>
+                </div>
             </div>
         </div>
-     </div>
-</body>
+    </body>
 </html>

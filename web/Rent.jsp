@@ -21,58 +21,62 @@
             <c:set var="info" scope="session" value="Please login to do that"/>
             <c:redirect url="Login.jsp"/>
         </c:if>
-        <img src="resources/images/Header.jpg">
-	<br>
-        <div class="content">
-            <a href="home.jsp" class="blueButton">Home</a>        
-            <h2>Rental Dates</h2>
-            <form class="getInfoForm" action="Payment.jsp" method="post">
-                <p>${sessionScope.requestedVehicle.getMake()} ${sessionScope.requestedVehicle.getModel()}</p>
-                <p>Price per day: €${sessionScope.requestedVehicle.getPrice()}</p>
+        <div id="wrapper">
+            <jsp:include page="navbar.jsp" />
+            <img src="resources/images/Header.jpg" id="logo">
+            <c:if test="${not empty sessionScope.name}">
+                <h2 id="username"><span>${sessionScope.name}</span></h2>
+                    </c:if>
+            <br>
+            <div class="content">
+                <h2>Rental Dates</h2>
+                <form class="getInfoForm" action="Payment.jsp" method="post">
+                    <p>${sessionScope.requestedVehicle.getMake()} ${sessionScope.requestedVehicle.getModel()}</p>
+                    <p>Price per day: €${sessionScope.requestedVehicle.getPrice()}</p>
 
-                <p>Enter the rental period below.</p>
+                    <p>Enter the rental period below.</p>
 
-                <fieldset class="contact">
-                    <legend>Dates</legend>
+                    <fieldset class="contact">
+                        <legend>Dates</legend>
+                        <div>
+                            <label for="startDate">Start Date</label> <input type="text" id="startDate" name="startDate" required>
+                        </div>
+                        <div>
+                            <label for="endDate">End Date</label> <input type="text" id="endDate" name="endDate"  required>
+                        </div>			
+                    </fieldset>
+
+                    <p id="finalPrice"></p>
+                    <br>
+                    <p>Enter your insurance details below.</p>
+                    <fieldset class="contact">
+                        <legend>Insurance Details</legend>
+                        <div>
+                            <label for="insuranceNo">Insurance No.</label> <input type="text" id="insuranceNo" name="insuranceNo" required>
+                        </div>
+                        <div>
+                            <label for="provider">Provider</label> <input type="text" id="provider" name="provider" required>
+                        </div>
+                        <div>
+                            <label for="coverType">Cover Type</label> <input type="text" id="coverType" name="coverType" required>
+                        </div>                        
+                    </fieldset>
+                    <br>
+
+                    <input type="hidden" name="reg" value="${sessionScope.requestedVehicle.getReg()}">
+                    <input type="hidden" name="make" value="${sessionScope.requestedVehicle.getMake()}">
+                    <input type="hidden" name="model" value="${sessionScope.requestedVehicle.getModel()}">
+                    <input type="hidden" name="price" id="finalPriceVal" value="">
                     <div>
-                        <label for="startDate">Start Date</label> <input type="text" id="startDate" name="startDate" required>
+                        <button type="submit">Submit</button>
                     </div>
-                    <div>
-                        <label for="endDate">End Date</label> <input type="text" id="endDate" name="endDate"  required>
-                    </div>			
-                </fieldset>
+                </form>
+            </div>
 
-                <p id="finalPrice"></p>
-                <br>
-                <p>Enter your insurance details below.</p>
-                <fieldset class="contact">
-                    <legend>Insurance Details</legend>
-                    <div>
-                        <label for="insuranceNo">Insurance No.</label> <input type="text" id="insuranceNo" name="insuranceNo" required>
-                    </div>
-                    <div>
-                        <label for="provider">Provider</label> <input type="text" id="provider" name="provider" required>
-                    </div>
-                    <div>
-                        <label for="coverType">Cover Type</label> <input type="text" id="coverType" name="coverType" required>
-                    </div>                        
-                </fieldset>
-                <br>
-
-                <input type="hidden" name="reg" value="${sessionScope.requestedVehicle.getReg()}">
-                <input type="hidden" name="make" value="${sessionScope.requestedVehicle.getMake()}">
-                <input type="hidden" name="model" value="${sessionScope.requestedVehicle.getModel()}">
-                <input type="hidden" name="price" id="finalPriceVal" value="">
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-        </div>
-                                 
-        <script>
+            <script>
                 $(document).ready(function() {
                     $('#startDate').Zebra_DatePicker({
-                        direction: true, 
+                        direction: true,
                         pair: $('#datepicker1'),
                         onSelect: function() {
                             calculateTotal();
@@ -85,19 +89,20 @@
                         }
                     });
                 });
-                
+
                 function calculateTotal()
-                {   
-                    if($('#startDate').val() !== '' && $('#endDate').val() !== ''){
-                        var pricePerDay = ${sessionScope.requestedVehicle.getPrice()};               
+                {
+                    if ($('#startDate').val() !== '' && $('#endDate').val() !== '') {
+                        var pricePerDay = ${sessionScope.requestedVehicle.getPrice()};
                         var oneDay = 86400000;	//milliseconds per day
                         var firstDate = new Date($('#startDate').val());
                         var secondDate = new Date($('#endDate').val());
-                        var diffDays = Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay));
-                        $('#finalPrice').html("Final Price: €" + diffDays*pricePerDay);
-                        $('#finalPriceVal').val(diffDays*pricePerDay);
+                        var diffDays = Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay));
+                        $('#finalPrice').html("Final Price: €" + diffDays * pricePerDay);
+                        $('#finalPriceVal').val(diffDays * pricePerDay);
                     }
                 }
-       </script>
+            </script>
+        </div>
     </body>
 </html>

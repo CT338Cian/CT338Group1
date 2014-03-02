@@ -21,8 +21,8 @@ public class LoginValidator {
 
     public static boolean validateUser(String email, String pswd){
         boolean status =  false;
+        EntityManager em = null;
         try{          
-            EntityManager em;
             em = emf.createEntityManager();
             
             // get salt
@@ -30,8 +30,9 @@ public class LoginValidator {
                 .setParameter(1, email)
                 .getResultList();
             
-            if (saltList.isEmpty()) // no salt, therefore no customer
+            if (saltList.isEmpty()){ // no salt, therefore no customer
                 return status;
+            }
             
             // use the salt to hash the entered password
             String salt = saltList.get(0).toString();
@@ -45,9 +46,14 @@ public class LoginValidator {
             if (!l.isEmpty())
                 status = true;
 
-            }catch(Exception e){
-                System.out.println(e);
+        }catch(Exception e){
+            System.out.println(e);
+        }finally{
+            //close the em to release any resources held up by the persistebce provider
+            if(em != null) {
+                em.close();
             }
-            return status;
+        }
+        return status;
     }
 }

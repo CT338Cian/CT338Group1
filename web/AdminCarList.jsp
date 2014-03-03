@@ -4,7 +4,7 @@
     Author     : Cian
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,6 +25,8 @@
                         <c:redirect url="home.jsp"/>
                     </c:if>
             <div style="color: deepskyblue">${info}</div>
+            <p></p>
+            <a href="AdminPage.jsp" class="blueButton" style="width: 110px" >Admin Panel</a>  
             <h1>Vehicles currently in Database</h1>
 
             <table id="vehicleListTable" border="3">

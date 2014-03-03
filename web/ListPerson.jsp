@@ -18,6 +18,9 @@
             <c:if test="${not empty sessionScope.name}">
                 <h2 id="username"><span>${sessionScope.name}</span></h2>
                     </c:if>
+                
+            <p></p>
+            <a href="AdminPage.jsp" class="blueButton" style="width: 110px" >Admin Panel</a>      
             <h1>List of Persons currently in Database</h1>
 
             <table id="personListTable" border="3">

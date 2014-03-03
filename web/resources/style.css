@@ -123,12 +123,18 @@ fieldset {
 	height:240px;
 }
 
+.carlist{
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}
+
 .carlist li {
   background: url('images/icon_arrow_right.png') no-repeat 97% 50%;
   border-bottom: 1px solid #ccc;
   display: table;
   border-collapse: collapse;
-  width: 30%;
+  width: 80%;
   height: 120px;
 }
 

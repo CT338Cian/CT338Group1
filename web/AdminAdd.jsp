@@ -18,7 +18,8 @@
                         <c:redirect url="home.jsp"/>
                     </c:if>
             <div style="color: red">${errorMessage}</div>
-
+            <p></p>
+            <a href="AdminPage.jsp" class="blueButton" style="width: 110px" >Admin Panel</a>  
             <form class="getInfoForm" action="Admin_AddServlet" method="post">
                 <p>Please enter details for new Car.</p>
 

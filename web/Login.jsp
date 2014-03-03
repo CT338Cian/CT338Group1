@@ -15,9 +15,6 @@
                 <h2 id="username"><span>${sessionScope.name}</span></h2>
             </c:if>	<br>
             <div class="content">
-                <a href="home.jsp" class="blueButton">Home</a>
-                <a href="CreateCustomer.jsp" class="blueButton">Register</a>
-
 
                 <h1>Login</h1>
                 <div style="color: red">${error}</div>

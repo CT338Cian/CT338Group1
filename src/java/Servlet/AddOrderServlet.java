@@ -46,7 +46,7 @@ public class AddOrderServlet extends HttpServlet {
             throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
-        EntityManager em2 = emf.createEntityManager();
+        
         HttpSession session = request.getSession();
         if (session.getAttribute("email") == null){
             session.setAttribute("error", "You need to be logged in to do that.");
@@ -72,30 +72,32 @@ public class AddOrderServlet extends HttpServlet {
             Integer cardNo = Integer.parseInt(request.getParameter("cardno"));
             Integer price = Integer.parseInt(request.getParameter("price"));
             
+            utx.begin();
+            em = emf.createEntityManager();
+            
             //get customer object
-            Customer c = (Customer)em2.createNamedQuery("Customer.findByEmail")
+            Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
                     .setParameter("email", email)
                     .getSingleResult();
             
             //get vehicle object
-            Vehicle v = (Vehicle)em2.createNamedQuery("Vehicle.findByReg")
+            Vehicle v = (Vehicle)em.createNamedQuery("Vehicle.findByReg")
                     .setParameter("reg", reg)
                     .getSingleResult();
             
             // check if insurance number entered already exists
-            List results = em2.createNamedQuery("Insurance.findByInsuranceNo")
+            List results = em.createNamedQuery("Insurance.findByInsuranceNo")
                     .setParameter("insuranceNo", insNo)
                     .getResultList();
             
-            Insurance insurance;
-            if(!results.isEmpty()){//Check if insurance number already exists
-                request.setAttribute("error","Order with that Insurance number already exists!");
-                request.getRequestDispatcher("Payment.jsp").forward(request, response);//should print error message
-                return;
+            // if insurance with stored insurance number already exists
+            if(!results.isEmpty()){
+                Insurance existingInsurance = (Insurance)results.get(0);
+                // delete current insurance
+                em.remove(existingInsurance);
             }
-            else{
-                insurance = new Insurance(insNo, provider, covertype, c);
-            }
+            // create new insurance object from the form data
+            Insurance insurance = new Insurance(insNo, provider, covertype, c);
             
             RentalOrder order = new RentalOrder(startDate, endDate, c, v);
             Transaction transaction = new Transaction(price, type, cardNo, order);    
@@ -103,8 +105,6 @@ public class AddOrderServlet extends HttpServlet {
             //set vehicle that was rented to not available
             v.setIsAvailable(Boolean.FALSE);
             
-            //begin a transaction
-            utx.begin();
             em = emf.createEntityManager();
             em.persist(order);
             em.persist(insurance);

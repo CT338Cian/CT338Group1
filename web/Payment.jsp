@@ -20,7 +20,11 @@
             <img src="resources/images/Header.jpg" id="logo">
             <c:if test="${not empty sessionScope.name}">
                 <h2 id="username"><span>${sessionScope.name}</span></h2>
-                    </c:if>
+            </c:if>
+            <c:if test="${empty sessionScope.name}">
+                <c:set var="info" scope="session" value="You need to login to do that."/>
+                <c:redirect url="home.jsp"/>
+            </c:if>
             <br>
             <fieldset class="contact">
                 <legend>Confirm your Order</legend>

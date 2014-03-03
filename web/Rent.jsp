@@ -18,7 +18,7 @@
     <body>
         <c:if test="${empty sessionScope.name}">
             <c:set var="referer" scope="session" value="${pageContext.request.servletPath}"/>
-            <c:set var="info" scope="session" value="Please login to do that"/>
+            <c:set var="info" scope="session" value="Please login to continue your order."/>
             <c:redirect url="Login.jsp"/>
         </c:if>
         <div id="wrapper">

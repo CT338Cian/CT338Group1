@@ -29,8 +29,8 @@ public class DisplayVehicles extends HttpServlet {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
-            //query for all the persons in database
-
+            
+            //query for all the vehicles in database
             List images = em.createQuery("SELECT v FROM Vehicle v WHERE v.imagePath IS NOT NULL AND v.isAvailable=1").getResultList();           
             request.setAttribute("searchResultsList",images);
             

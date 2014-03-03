@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 /**
@@ -46,6 +47,14 @@ public class AdminReturnServlet extends HttpServlet {
             throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
+        
+        // check user is authorised
+        HttpSession session = request.getSession();
+        if (session.getAttribute("isAdmin") != Boolean.TRUE){
+            session.setAttribute("error", "You do not have admin access!");
+            response.sendRedirect("home.jsp");
+            return;
+        }
         
         try{
             String reg = (String)request.getParameter("reg");

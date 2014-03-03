@@ -11,6 +11,7 @@ import Entities.Insurance;
 import java.io.IOException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,10 +56,16 @@ public class LoginServlet extends HttpServlet {
                 Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
                         .setParameter("email", user)
                         .getSingleResult();
+                
                 // get insurance details from database
-                Insurance insurance = (Insurance)em.createQuery("SELECT i FROM Insurance i WHERE i.customerEmail = :email")
-                        .setParameter("email", c)
-                        .getSingleResult();
+                Insurance insurance = null;
+                try{
+                    insurance = (Insurance)em.createQuery("SELECT i FROM Insurance i WHERE i.customerEmail = :email")
+                            .setParameter("email", c)
+                            .getSingleResult();
+                }catch(NoResultException e){
+                    System.out.println("No insurance details for user.");
+                }
                 
                 //create http session and set required attributes
                 HttpSession session = request.getSession();

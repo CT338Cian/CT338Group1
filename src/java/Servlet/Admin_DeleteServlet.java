@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 
 /**
@@ -39,7 +40,15 @@ public class Admin_DeleteServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
        EntityManager em = null;
        
-       try {
+       // check user is authorised
+        HttpSession session = request.getSession();
+        if (session.getAttribute("isAdmin") != Boolean.TRUE){
+            session.setAttribute("error", "You do not have admin access!");
+            response.sendRedirect("home.jsp");
+            return;
+        }
+        
+        try {
             utx.begin();
             //Create an em. Since the em is created inside a transaction, it is associsated with the transaction
             em = emf.createEntityManager();

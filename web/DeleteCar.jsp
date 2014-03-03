@@ -20,7 +20,11 @@
             <img src="resources/images/Header.jpg" id="logo">
             <c:if test="${not empty sessionScope.name}">
                 <h2 id="username"><span>${sessionScope.name}</span></h2>
-                    </c:if>
+            </c:if>
+            <c:if test="${sessionScope.isAdmin == null || sessionScope.isAdmin == false}">
+                <c:set var="info" scope="session" value="You do not have admin access!"/>
+                <c:redirect url="home.jsp"/>
+            </c:if>
             <div style="color: red">${errorMessage}</div>
             <h1>Are you sure you want to delete this vehicle?</h1>
             <table id="vehicles" border="3">

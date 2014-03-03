@@ -31,22 +31,31 @@
                 <fieldset class="contact">
                     <legend>Search</legend>
                     <div><label for="make">Make:</label>
-                        <select id="make" name="make">
-                            <option value="Mazda">Mazda</option>
-                            <option value="Toyota">Toyota</option>
-                            <option value="Nissan">Nissan</option>
+                        <select id="make" name="make">              
+                            <option value="Any">Any</option>
+                            <option value="Aston Martin">Aston Martin</option>
                             <option value="Audi">Audi</option>
-                            <option value="McLaren">McLaren</option>
+                            <option value="Ferrari">Ferrari</option>
                             <option value="Ford">Ford</option>
-                            <option value="Lambourghini">Lambourghini</option>
+                            <option value="Hennessey">Hennessey</option>
+                            <option value="Koenigsegg">Koenigsegg</option>
+                            <option value="Lambourghini">Lamborghini</option>
+                            <option value="Mazda">Mazda</option>
+                            <option value="McLaren">McLaren</option>
+                            <option value="Nissan">Nissan</option>
+                            <option value="SSC">SSC</option>
+                            <option value="Toyota">Toyota</option>
+                            <option value="Zenvo">Zenvo</option>
                         </select></div>
                     <div><label for="transmission">Transmission Type:</label>
                         <select id="transmission" name="transmission">
+                            <option value="Any">Any</option>
                             <option value="Manual">Manual</option>
                             <option value="Automatic">Automatic</option>
                         </select></div>
                     <div><label for="make">Price:</label>
                         <select id="price" name="price">
+                            <option value="Any">Any</option>
                             <option value="500"><500</option>
                             <option value="1000"><1000</option>
                             <option value="2500"><2500</option>

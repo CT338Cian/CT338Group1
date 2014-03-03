@@ -52,19 +52,73 @@ public class SearchServlet extends HttpServlet {
                 System.out.println("make is: " + make);
                 String transmission = request.getParameter("transmission");
                 System.out.println("transmission is: " + transmission);
-                int price = Integer.parseInt(request.getParameter("price"));
-                System.out.println("price is: " + price);
+                int price;// = Integer.parseInt(request.getParameter("price"));
+                //System.out.println("price is: " + price);
 
                 //return all cars (debug)
                 //searchResults = em.createNamedQuery("Vehicle.findAll").getResultList();
 
-                // run query
-                searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.transmission = :transmission AND v.price < :price AND v.isAvailable=1")
-                    .setParameter("make", make)
-                    .setParameter("transmission", transmission)
+                if(make.equals("Any") && transmission.equals("Any")){ 
+                    if(request.getParameter("price").equals("Any")){//search on all vehicles(select all)
+                    searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.isAvailable=1").getResultList();
+                    }
+                    else if(!request.getParameter("price").equals("Any")){//search on price
+                    price = Integer.parseInt(request.getParameter("price"));
+                    searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.price < :price AND v.isAvailable=1")
                     .setParameter("price", price)
                     .getResultList();
+                    }
+                }
+                
+                if(make.equals("Any") && !transmission.equals("Any")){ 
+                    if(request.getParameter("price").equals("Any")){//search on trans
+                            searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.transmission = :transmission AND v.isAvailable=1")
+                                .setParameter("transmission", transmission)
+                                .getResultList();
+                    }
+                    else if(!request.getParameter("price").equals("Any")){//search on trans&price
+                            price = Integer.parseInt(request.getParameter("price"));
+                            searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.transmission = :transmission AND v.price < :price AND v.isAvailable=1")
+                                .setParameter("transmission", transmission)
+                                .setParameter("price", price)
+                                .getResultList();
+                    }
+                }
+                
+                if(!make.equals("Any") && transmission.equals("Any")){ 
+                    if(request.getParameter("price").equals("Any")){//search on make
+                            searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.isAvailable=1")
+                                .setParameter("make", make)
+                                .getResultList();
+                    }
+                    else if(!request.getParameter("price").equals("Any")){//search on make&price
+                            price = Integer.parseInt(request.getParameter("price"));
+                            searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.price < :price AND v.isAvailable=1")
+                                .setParameter("make", make)
+                                .setParameter("price", price)
+                                .getResultList();
+                    }
+                }
+                
+                if(!make.equals("Any") && !transmission.equals("Any")){ 
+                    if(request.getParameter("price").equals("Any")){//search on make&trans
+                            searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.transmission = :transmission AND v.isAvailable=1")
+                                .setParameter("make", make)
+                                                    .setParameter("transmission", transmission)
+                                .getResultList();
+                    }
+                    else if(!request.getParameter("price").equals("Any")){//search on make&trans&price
+                            price = Integer.parseInt(request.getParameter("price"));
+                            searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.transmission = :transmission AND v.price < :price AND v.isAvailable=1")
+                                .setParameter("make", make)
+                                                    .setParameter("transmission", transmission)
+                                .setParameter("price", price)
+                                .getResultList();
+                    }
+                }
             }
+            
+            
             else if (searchType.equals("searchbar")){
                 System.out.println("Performing searchbar search");
                 

@@ -26,7 +26,7 @@
                 <img src="resources/images/Header.jpg" id="logo">
                 <c:if test="${not empty sessionScope.name}">
                     <h2 id="username"><span>${sessionScope.name}</span></h2>
-                        </c:if>   
+                </c:if>   
                 <h1>Account Registration</h1>
                 <div style="color: red">${errorMessage}</div>
 
@@ -46,7 +46,7 @@
                         </div>
 
                         <div>
-                            <label for="dob">Date of Birth</label> <input type="text" class="squareInput" name="dob" required>
+                            <label for="dob">Date of Birth</label> <input type="text" id="datepicker" class="squareInput" name="dob" required>
                         </div>
                         <div>
                             <label for="email">Email</label> <input type="email" class="squareInput" name="email" required>

@@ -85,19 +85,41 @@ public class AddOrderServlet extends HttpServlet {
                     .setParameter("reg", reg)
                     .getSingleResult();
             
-            // check if insurance number entered already exists
-            List results = em.createNamedQuery("Insurance.findByInsuranceNo")
-                    .setParameter("insuranceNo", insNo)
-                    .getResultList();
-            
-            // if insurance with stored insurance number already exists
-            if(!results.isEmpty()){
-                Insurance existingInsurance = (Insurance)results.get(0);
-                // delete current insurance
-                em.remove(existingInsurance);
+            // check that insurance number isn't in use by another customer
+            Insurance checkOwner = em.find(Insurance.class, insNo);
+            if (checkOwner != null){
+                if (!checkOwner.getCustomerEmail().equals(c)){ // insurance number is registered to another customer
+                    request.setAttribute("error","That insurance number is registered to another customer!");
+                    request.getRequestDispatcher("Rent.jsp").forward(request, response);
+                    return;
+                }
             }
+            
             // create new insurance object from the form data
             Insurance insurance = new Insurance(insNo, provider, covertype, c);
+            
+            // check if customer already has insurance details stored
+            List insuranceResult = em.createQuery("SELECT i FROM Insurance i WHERE i.customerEmail = :email")
+                    .setParameter("email", c)
+                    .getResultList();
+            
+            if(!insuranceResult.isEmpty()){
+                // insurance data already exists for a customer
+                Insurance existingInsurance = (Insurance)insuranceResult.get(0);
+                if (!insurance.equals(existingInsurance)){
+                    // insurance details have been modified, so remove original details, and write new details
+                    em.remove(existingInsurance);
+                    em.persist(insurance);
+                    // update session to include new details
+                    session.setAttribute("insurance", insurance);
+                }
+            }
+            else{
+                // no insurance details in db. Create new instead
+                em.persist(insurance);
+                // update session to include new details
+                session.setAttribute("insurance", insurance);
+            }
             
             RentalOrder order = new RentalOrder(startDate, endDate, c, v);
             Transaction transaction = new Transaction(price, type, cardNo, order);    
@@ -107,7 +129,6 @@ public class AddOrderServlet extends HttpServlet {
             
             em = emf.createEntityManager();
             em.persist(order);
-            em.persist(insurance);
             em.persist(transaction);
             em.merge(v);
             utx.commit();

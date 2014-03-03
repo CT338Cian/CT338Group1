@@ -7,6 +7,7 @@
 package Servlet;
 
 import Entities.Customer;
+import Entities.Insurance;
 import java.io.IOException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -54,12 +55,18 @@ public class LoginServlet extends HttpServlet {
                 Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
                         .setParameter("email", user)
                         .getSingleResult();
+                // get insurance details from database
+                Insurance insurance = (Insurance)em.createQuery("SELECT i FROM Insurance i WHERE i.customerEmail = :email")
+                        .setParameter("email", c)
+                        .getSingleResult();
+                
                 //create http session and set required attributes
                 HttpSession session = request.getSession();
                 session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
                 session.setAttribute("name", c.getFName());
                 session.setAttribute("email", c.getEmail());
                 session.setAttribute("isAdmin", c.getIsAdmin());
+                session.setAttribute("insurance", insurance);
                 if (c.getIsAdmin()){
                     response.sendRedirect("AdminPage.jsp");
                 }

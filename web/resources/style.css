@@ -17,7 +17,6 @@ body{
 #username { 
    position: absolute; 
    top: 163px; 
-   left: 50; 
    width: 100%; 
 }
 
@@ -123,11 +122,11 @@ fieldset {
 	height:240px;
 }
 
-.carlist{
+/*.carlist{
     columns: 2;
-    -webkit-columns: 2;
+    
     -moz-columns: 2;
-}
+}*/
 
 .carlist li {
   background: url('images/icon_arrow_right.png') no-repeat 97% 50%;

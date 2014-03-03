@@ -26,9 +26,11 @@
             <img src="resources/images/Header.jpg" id="logo">
             <c:if test="${not empty sessionScope.name}">
                 <h2 id="username"><span>${sessionScope.name}</span></h2>
-                    </c:if>
+            </c:if>
             <br>
             <div class="content">
+                <div style="color: red">${error}</div>
+                <c:remove var="error" scope="session" />
                 <h2>Rental Dates</h2>
                 <form class="getInfoForm" action="Payment.jsp" method="post">
                     <p>${sessionScope.requestedVehicle.getMake()} ${sessionScope.requestedVehicle.getModel()}</p>
@@ -52,13 +54,13 @@
                     <fieldset class="contact">
                         <legend>Insurance Details</legend>
                         <div>
-                            <label for="insuranceNo">Insurance No.</label> <input type="text" id="insuranceNo" name="insuranceNo" required>
+                            <label for="insuranceNo">Insurance No.</label> <input type="text" id="insuranceNo" name="insuranceNo" value="${sessionScope.insurance.getInsuranceNo()}" required>
                         </div>
                         <div>
-                            <label for="provider">Provider</label> <input type="text" id="provider" name="provider" required>
+                            <label for="provider">Provider</label> <input type="text" id="provider" name="provider" value="${sessionScope.insurance.getProvider()}" required>
                         </div>
                         <div>
-                            <label for="coverType">Cover Type</label> <input type="text" id="coverType" name="coverType" required>
+                            <label for="coverType">Cover Type</label> <input type="text" id="coverType" name="coverType" value="${sessionScope.insurance.getCoverType()}" required>
                         </div>                        
                     </fieldset>
                     <br>

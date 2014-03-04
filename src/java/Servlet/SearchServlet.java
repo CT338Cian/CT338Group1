@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Searches the database according to user search terms
  */
 
 package Servlet;
@@ -43,40 +41,40 @@ public class SearchServlet extends HttpServlet {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
+            
+            // get what type of search the user performed (dropdown search, or searchbox)
             String searchType = request.getParameter("searchType");
             List searchResults = null;
             
+            // dropdown search performed
             if (searchType.equals("dropdown")){
                 System.out.println("Performing dropdown search");
                 String make = request.getParameter("make");
                 System.out.println("make is: " + make);
                 String transmission = request.getParameter("transmission");
                 System.out.println("transmission is: " + transmission);
-                int price;// = Integer.parseInt(request.getParameter("price"));
-                //System.out.println("price is: " + price);
-
-                //return all cars (debug)
-                //searchResults = em.createNamedQuery("Vehicle.findAll").getResultList();
-
+                int price;
+                
+                
+                // handle possible dropdown search combinations
                 if(make.equals("Any") && transmission.equals("Any")){ 
                     if(request.getParameter("price").equals("Any")){//search on all vehicles(select all)
-                    searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.isAvailable=1").getResultList();
+                        searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.isAvailable=1").getResultList();
                     }
-                    else if(!request.getParameter("price").equals("Any")){//search on price
-                    price = Integer.parseInt(request.getParameter("price"));
-                    searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.price < :price AND v.isAvailable=1")
-                    .setParameter("price", price)
-                    .getResultList();
+                    else {//search on price
+                        price = Integer.parseInt(request.getParameter("price"));
+                        searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.price < :price AND v.isAvailable=1")
+                            .setParameter("price", price)
+                            .getResultList();
                     }
                 }
-                
-                if(make.equals("Any") && !transmission.equals("Any")){ 
+                else if(make.equals("Any") && !transmission.equals("Any")){ 
                     if(request.getParameter("price").equals("Any")){//search on trans
                             searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.transmission = :transmission AND v.isAvailable=1")
                                 .setParameter("transmission", transmission)
                                 .getResultList();
                     }
-                    else if(!request.getParameter("price").equals("Any")){//search on trans&price
+                    else {//search on trans&price
                             price = Integer.parseInt(request.getParameter("price"));
                             searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.transmission = :transmission AND v.price < :price AND v.isAvailable=1")
                                 .setParameter("transmission", transmission)
@@ -84,14 +82,13 @@ public class SearchServlet extends HttpServlet {
                                 .getResultList();
                     }
                 }
-                
-                if(!make.equals("Any") && transmission.equals("Any")){ 
+                else if(!make.equals("Any") && transmission.equals("Any")){ 
                     if(request.getParameter("price").equals("Any")){//search on make
                             searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.isAvailable=1")
                                 .setParameter("make", make)
                                 .getResultList();
                     }
-                    else if(!request.getParameter("price").equals("Any")){//search on make&price
+                    else {//search on make&price
                             price = Integer.parseInt(request.getParameter("price"));
                             searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.price < :price AND v.isAvailable=1")
                                 .setParameter("make", make)
@@ -99,39 +96,39 @@ public class SearchServlet extends HttpServlet {
                                 .getResultList();
                     }
                 }
-                
-                if(!make.equals("Any") && !transmission.equals("Any")){ 
+                else if(!make.equals("Any") && !transmission.equals("Any")){ 
                     if(request.getParameter("price").equals("Any")){//search on make&trans
                             searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.transmission = :transmission AND v.isAvailable=1")
                                 .setParameter("make", make)
-                                                    .setParameter("transmission", transmission)
+                                .setParameter("transmission", transmission)
                                 .getResultList();
                     }
-                    else if(!request.getParameter("price").equals("Any")){//search on make&trans&price
+                    else {//search on make&trans&price
                             price = Integer.parseInt(request.getParameter("price"));
                             searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :make AND v.transmission = :transmission AND v.price < :price AND v.isAvailable=1")
                                 .setParameter("make", make)
-                                                    .setParameter("transmission", transmission)
+                                .setParameter("transmission", transmission)
                                 .setParameter("price", price)
                                 .getResultList();
                     }
                 }
             }
             
-            
+            // searchbar search
             else if (searchType.equals("searchbar")){
                 System.out.println("Performing searchbar search");
                 
+                // get search term
                 String searchTerm = request.getParameter("searchterm");
                 System.out.println("Performing search for: " + searchTerm);
-                
+                // perform search
                 searchResults = em.createQuery("SELECT v FROM Vehicle v WHERE v.make = :searchterm AND v.isAvailable=1 OR v.model = :searchterm AND v.isAvailable=1")
                     .setParameter("searchterm", searchTerm)
                     .getResultList();
             }
-
-            request.setAttribute("searchResultsList",searchResults);
             
+            // attach search results to request and forward to results page
+            request.setAttribute("searchResultsList",searchResults);
             request.getRequestDispatcher("SearchResults.jsp").forward(request, response);
         }catch (Exception ex) {
             throw new ServletException(ex);

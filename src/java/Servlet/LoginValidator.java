@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Verifies that user data matches that in the database
  */
 
 package Servlet;
@@ -25,7 +23,7 @@ public class LoginValidator {
         try{          
             em = emf.createEntityManager();
             
-            // get salt
+            // get salt from database
             List saltList = em.createNativeQuery("select Salt from Customer where email=?")
                 .setParameter(1, email)
                 .getResultList();

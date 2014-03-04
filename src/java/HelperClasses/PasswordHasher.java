@@ -1,12 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Generates a salt, a hash, or both in the case of user registration
  */
 
 package HelperClasses;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -21,8 +18,11 @@ public class PasswordHasher {
     public static String getHash(String pass, String salt) {
         String hashedPassword = null;
         try{
+            // get sha-1 digest
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(salt.getBytes()); //update digest to include salt
+            // update digest to include salt
+            md.update(salt.getBytes()); 
+            // digest bytes of password into a byte array
             byte[] hashedBytes = md.digest(pass.getBytes());
             
             // convert byte array to hex

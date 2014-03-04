@@ -1,3 +1,7 @@
+/*
+ * Allows an admin to delete a vehicle from the database
+ */
+
 package Servlet;
 
 import java.io.IOException;

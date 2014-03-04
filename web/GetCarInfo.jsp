@@ -19,7 +19,7 @@
             <img src="resources/images/Header.jpg" id="logo">
             <c:if test="${not empty sessionScope.name}">
                 <h2 id="username"><span>${sessionScope.name}</span></h2>
-                    </c:if>
+            </c:if>
             <div class="content">       
 
                 <div style="color: red">${errorMessage}</div>

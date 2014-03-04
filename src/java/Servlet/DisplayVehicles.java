@@ -1,4 +1,6 @@
-
+/*
+ * Gets vehicles from the database and sends them for the user to browse through.
+ */
 package Servlet;
 
 import java.io.*;
@@ -31,7 +33,8 @@ public class DisplayVehicles extends HttpServlet {
             em = emf.createEntityManager();
             
             //query for all the vehicles in database
-            List images = em.createQuery("SELECT v FROM Vehicle v WHERE v.imagePath IS NOT NULL AND v.isAvailable=1").getResultList();           
+            List images = em.createQuery("SELECT v FROM Vehicle v WHERE v.imagePath IS NOT NULL AND v.isAvailable=1")
+                    .getResultList();           
             request.setAttribute("searchResultsList",images);
             
             //Forward to the jsp page for rendering

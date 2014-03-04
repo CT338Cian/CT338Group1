@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Allows an admin to add a vehicle to the database
  */
 
 package Servlet;
@@ -62,22 +60,20 @@ public class Admin_AddServlet extends HttpServlet {
             String imagePath   = (String) request.getParameter("imagePath");
             Boolean isAvailable   = true;
 
-            
+            //  check if vehicle with that reg already exists
             List results = em2.createNamedQuery("Vehicle.findByReg").setParameter("reg", reg).getResultList();
             
             if(!results.isEmpty()){//Reg already exists
                 request.setAttribute("errorMessage","Car with that Reg Already Exists! Please Choose another.");
-                request.getRequestDispatcher("AdminAdd.jsp").forward(request, response);//shud print error msg
+                request.getRequestDispatcher("AdminAdd.jsp").forward(request, response);
             }
             else{
-
+                // create new vehicle object
                 Vehicle Car = new Vehicle(reg, make, model, year, colour, engineCC, price, fuelType, transmission, imagePath, isAvailable);
 
                 //begin a transaction
                 utx.begin();
                 //create an em. 
-                //Since the em is created inside a transaction, it is associsated with 
-                //the transaction
                 em = emf.createEntityManager();
                 em.persist(Car);
                 utx.commit();

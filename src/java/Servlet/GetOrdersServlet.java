@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Get orders for a current customer
  */
 
 package Servlet;
@@ -45,6 +43,7 @@ public class GetOrdersServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         
+        // check that user if logged in
         HttpSession session = request.getSession();
         if (session.getAttribute("name") == null){
             session.setAttribute("error", "You need to be logged in to do that.");
@@ -54,18 +53,20 @@ public class GetOrdersServlet extends HttpServlet {
         
         try {
             em = emf.createEntityManager();
-            
+            // get user email from session
             String email = (String)session.getAttribute("email");
-
+            
+            // create customer object
             Customer c = (Customer)em.createNamedQuery("Customer.findByEmail")
                     .setParameter("email", email)
                     .getSingleResult();
             
+            // find all orders made by customer
             List orders = em.createQuery("SELECT t FROM Transaction t WHERE t.orderOrderNo = (SELECT r.orderNo FROM RentalOrder r WHERE r.customerEmail = :customer)")
                     .setParameter("customer", c)
                     .getResultList();
+            // add orders to request and send to jsp for rendering
             request.setAttribute("orderList", orders);
-            //Forward to the jsp page for rendering
             request.getRequestDispatcher("MyOrders.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);

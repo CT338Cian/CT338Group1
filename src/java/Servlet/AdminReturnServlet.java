@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Allows an admin to return a vehicle to the rentable car pool, 
+ * after a customer has returned it
  */
 
 package Servlet;
@@ -66,7 +65,7 @@ public class AdminReturnServlet extends HttpServlet {
             // find vehicle
             Vehicle v = em.find(Vehicle.class, reg);
             
-            // change all properties to those from form
+            // change vehicle to available for rent
             v.setIsAvailable(Boolean.TRUE);
 
             em.persist(v);

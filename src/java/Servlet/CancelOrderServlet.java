@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Allows a user to cancel an order
  */
 
 package Servlet;
@@ -52,15 +50,17 @@ public class CancelOrderServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
+            
+            // make sure user is logged in
             HttpSession session = request.getSession();
             String custEmail = (String)session.getAttribute("email");
-            
             if (custEmail == null){
                 session.setAttribute("error","You need to be logged in to do that");
                 response.sendRedirect("Login.jsp");
                 return;
             }
             
+            // get order number passed in as URL parameter
             int orderNo = Integer.parseInt(request.getParameter("OrderNo"));
             
             utx.begin();
@@ -73,6 +73,7 @@ public class CancelOrderServlet extends HttpServlet {
             // get order object
             RentalOrder order = em.find(RentalOrder.class, orderNo);
             
+            // check that the requested order belongs to the customer
             if (!order.getCustomerEmail().equals(customer)){
                 session.setAttribute("error","You can't delete orders that are not yours!");
                 response.sendRedirect("home.jsp");

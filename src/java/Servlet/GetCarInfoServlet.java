@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Get info for a particular car
  */
 
 package Servlet;
@@ -34,10 +32,14 @@ public class GetCarInfoServlet extends HttpServlet {
         EntityManager em = null;
         try{
             em = emf.createEntityManager();
+            // get registration passed in as URL parameter
             String Reg  = (String) request.getParameter("Reg");
-            List results = em.createQuery("SELECT v FROM Vehicle v WHERE v.reg = :reg").setParameter("reg", Reg).getResultList();
-  
-            if(!results.isEmpty()){
+            // search for vehicle
+            List results = em.createQuery("SELECT v FROM Vehicle v WHERE v.reg = :reg")
+                    .setParameter("reg", Reg)
+                    .getResultList();
+            
+            if(!results.isEmpty()){//send to JSP for rendering
                         request.setAttribute("VehicleInfo",results);
                         request.getRequestDispatcher("GetCarInfo.jsp").forward(request, response);
             }

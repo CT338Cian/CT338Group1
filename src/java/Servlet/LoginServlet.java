@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Handles user logon
  */
 
 package Servlet;
@@ -46,10 +44,12 @@ public class LoginServlet extends HttpServlet {
         EntityManager em = null;
         try{
             em = emf.createEntityManager();
-
+            
+            // get user credentials from login form
             String user = request.getParameter("user");
             String pass = request.getParameter("pswd");
-
+            
+            // call loginValidator to hash the entered password and validate credentials
             if(LoginValidator.validateUser(user, pass)){ //if email and password match in DB
                 System.out.println("User "+user+" logged in.");
                 // get customer details from database
@@ -74,10 +74,11 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("email", c.getEmail());
                 session.setAttribute("isAdmin", c.getIsAdmin());
                 session.setAttribute("insurance", insurance);
-                if (c.getIsAdmin()){
+                
+                if (c.getIsAdmin()){ // user is admin
                     response.sendRedirect("AdminPage.jsp");
                 }
-                else{
+                else{ // user is regular customer
                     if (session.getAttribute("referer") != null){
                         // get referal string (ignoring leading slash)
                         String referer = ((String)session.getAttribute("referer")).substring(1);

@@ -1,4 +1,6 @@
-
+/*
+ * Allows an admin to list all registered customers
+ */
 package Servlet;
 
 import java.io.*;
@@ -27,9 +29,18 @@ public class ListPersonServlet extends HttpServlet {
     throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
+        
+        // check user is authorised
+        HttpSession session = request.getSession();
+        if (session.getAttribute("isAdmin") != Boolean.TRUE){
+            session.setAttribute("error", "You do not have admin access!");
+            response.sendRedirect("home.jsp");
+            return;
+        }
+        
         try {
             em = emf.createEntityManager();
-
+            
             //query for all the persons in database
             List persons = em.createQuery("select p from Customer p").getResultList();
             request.setAttribute("personList",persons);

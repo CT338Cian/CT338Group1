@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Logs the user out and invalidates the session
  */
 
 package Servlet;
@@ -32,8 +30,11 @@ public class LogoutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // get session, if it exists
+        
+        // get session, if it exists, then invalidate it
+        HttpSession session = request.getSession(false); 
         session.invalidate();
+        
         request.getSession().setAttribute("info","Logged Out Successfully");
         response.sendRedirect("Login.jsp");
     }

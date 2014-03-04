@@ -1,4 +1,6 @@
-
+/*
+ * Registers a new customer
+ */
 package Servlet;
 
 import HelperClasses.PasswordHasher;
@@ -55,19 +57,22 @@ public class CreateCustomerServlet extends HttpServlet {
             String password   = (String) request.getParameter("password");
             boolean isAdmin = false;
             
-            List results = em2.createNamedQuery("Customer.findByEmail").setParameter("email", email).getResultList();
+            // check that email is not already registered to another customer
+            List results = em2.createNamedQuery("Customer.findByEmail")
+                    .setParameter("email", email)
+                    .getResultList();
             
             if(!results.isEmpty()){//email already exists
                 request.setAttribute("errorMessage","Email Taken! Choose Another");
-                request.getRequestDispatcher("CreateCustomer.jsp").forward(request, response);//shud print error msg
+                request.getRequestDispatcher("CreateCustomer.jsp").forward(request, response);
             }
             else{
-                //hash the password
+                // send the password to be hashed, which returns hash and salt
                 String[] passAndHash = PasswordHasher.registerHashAndSalt(password);
                 String hashedPassword = passAndHash[0];
                 String salt = passAndHash[1];
                 
-                //Create a person instance out of it
+                //Create a person instance
                 Customer person = new Customer(firstName, lastName, address, dob, email, phone, hashedPassword, isAdmin, salt);
                 HttpSession session = request.getSession();
                 session.setMaxInactiveInterval(15*60); // timeout after 15 minutes
@@ -85,7 +90,8 @@ public class CreateCustomerServlet extends HttpServlet {
                 //commit transaction which will trigger the em to 
                 //commit newly created entity into database
                 utx.commit();
-
+                
+                // redirect back to page before login prompt, if applicable.
                 if (session.getAttribute("referer") != null){
                         // get referal string (ignoring leading slash)
                         String referer = ((String)session.getAttribute("referer")).substring(1);

@@ -86,9 +86,16 @@ public class CreateCustomerServlet extends HttpServlet {
                 //commit newly created entity into database
                 utx.commit();
 
-                //Forward to ListPerson servlet to list persons along with the newly
-                //created person above
-                request.getRequestDispatcher("home.jsp").forward(request, response);
+                if (session.getAttribute("referer") != null){
+                        // get referal string (ignoring leading slash)
+                        String referer = ((String)session.getAttribute("referer")).substring(1);
+                        System.out.println("Redirecting back to referer: " + referer);
+                        response.sendRedirect(referer);
+                        session.removeAttribute("referer");
+               }
+               else{
+                        response.sendRedirect("home.jsp");
+               }
             }
         } catch (Exception ex) {
             throw new ServletException(ex);
